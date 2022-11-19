@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 655111597}
   - component: {fileID: 655111598}
+  - component: {fileID: 655111599}
   m_Layer: 0
   m_Name: DestructionClient
   m_TagString: Untagged
@@ -166,9 +167,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acec03a41696e0d408af94bbe355c259, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isClient: 1
   address: 127.0.0.1
   port: 603
+--- !u!114 &655111599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655111596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 925990d2b2e706447b03a4710c4b12f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  client: {fileID: 655111598}
   testBool: 0
 --- !u!1 &705507993
 GameObject:
