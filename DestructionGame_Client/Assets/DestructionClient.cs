@@ -26,7 +26,9 @@ public class DestructionClient : DestructionNetwork
         {
             testBool = false;
             //TestSendMessage("HELLO");
-            TestSendMessage("GenericRPC");
+            //TestSendMessage("GenericRPC", 20, false, "LOL");
+            TestSendMessage("GenericRPC", "LOL", false, 20, 12.45f);
+
         }
     }
 
@@ -39,10 +41,11 @@ public class DestructionClient : DestructionNetwork
 
         netClient = netPeerKinda as NetClient;
     }
-    public void TestSendMessage(string theMessage)
+    public void TestSendMessage(string theMessage, params object[] parameters)
     {
         NetOutgoingMessage message = netPeerKinda.CreateMessage();
         message.Write(theMessage);
+        WriteRPCParameters(message, parameters);
         netClient.SendMessage(message, NetDeliveryMethod.ReliableOrdered);
     }
 }

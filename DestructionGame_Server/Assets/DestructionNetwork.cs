@@ -20,7 +20,8 @@ public abstract class DestructionNetwork : MonoBehaviour
         int numberOfMessages = netPeerKinda.ReadMessages(incomingMessages);
         foreach (NetIncomingMessage message in incomingMessages)
         {
-            Debug.Log($"Message recieved of type {message.MessageType.ToString()}");
+            long senderID = message.SenderConnection.RemoteUniqueIdentifier;
+            Debug.Log($"Message recieved of type {message.MessageType.ToString()} from sender of ID {senderID}");
             if (message.MessageType == NetIncomingMessageType.Data)
             {
                 string functionName = message.ReadString();
@@ -33,8 +34,6 @@ public abstract class DestructionNetwork : MonoBehaviour
                         methodInfo.Invoke(script, null);
                     }
                 }
-               // string theMessage = message.ReadString();
-               // Debug.Log($"data message had a string: {theMessage}");
             }
         }
     }
