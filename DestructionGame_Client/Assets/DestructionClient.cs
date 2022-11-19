@@ -25,13 +25,8 @@ public class DestructionClient : DestructionNetwork
         if (testBool)
         {
             testBool = false;
-            //TestSendMessage("HELLO");
-            //TestSendMessage("GenericRPC", 20, false, "LOL");
-            //TestSendMessage("GenericRPC", "LOL", false, 20, 12.45f);
-            TestSendMessage("DemoMakeAPlayer", "Johnson", false, 2);
-            TestSendMessage("DemoMakeAPlayer", "Hector", true, 1);
-
-
+            CallRPC("DemoMakeAPlayer", "Johnson", false, 2);
+            CallRPC("DemoMakeAPlayer", "Hector", true, 1);
 
         }
     }
@@ -45,11 +40,31 @@ public class DestructionClient : DestructionNetwork
 
         netClient = netPeerKinda as NetClient;
     }
-    public void TestSendMessage(string theMessage, params object[] parameters)
+    public void CallRPC(string theMessage, params object[] parameters)
+    {
+        CallRPC(theMessage, NetDeliveryMethod.ReliableOrdered, parameters);
+    }
+    public void CallRPC(string theMessage, NetDeliveryMethod netDeliveryMethod, params object[] parameters)
     {
         NetOutgoingMessage message = netPeerKinda.CreateMessage();
         message.Write(theMessage);
         WriteRPCParameters(message, parameters);
-        netClient.SendMessage(message, NetDeliveryMethod.ReliableOrdered);
+        netClient.SendMessage(message, netDeliveryMethod);
+    }
+
+    public void RemoteDebugLog(NetConnection serverConnection, string theLog, int severity)
+    {
+        if (severity == 0)
+        {
+            Debug.Log("SERVER REMOTE LOG: " + theLog);
+        }
+        if (severity == 1)
+        {
+            Debug.LogWarning("SERVER REMOTE LOG: " + theLog);
+        }
+        if (severity == 2)
+        {
+            Debug.LogError("SERVER REMOTE LOG: " + theLog);
+        }
     }
 }

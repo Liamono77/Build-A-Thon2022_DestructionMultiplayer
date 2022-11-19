@@ -43,6 +43,9 @@ public abstract class DestructionNetwork : MonoBehaviour
         Debug.Log($"Attempting to read RPC parameters...");
 
         List<object> parameters = new List<object>();
+
+        parameters.Add(message.SenderConnection); //this is to allow the server to have Power and Authority. Easily check RPCs before calling them using this first parameter
+
         string parametersDefinition = message.ReadString();
         Debug.Log($"Parameters definition was read as {parametersDefinition}");
 
