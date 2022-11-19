@@ -5,6 +5,7 @@ using Lidgren.Network;
 
 public class DestructionClient : DestructionNetwork
 {
+    NetClient netClient;
     public string address = "127.0.0.1";
     public int port = 603;
 
@@ -34,5 +35,13 @@ public class DestructionClient : DestructionNetwork
         netPeerKinda = new NetClient(netConfiguration);
         netPeerKinda.Start();
         netPeerKinda.Connect(host: address, port: port);
+
+        netClient = netPeerKinda as NetClient;
+    }
+    public void TestSendMessage(string theMessage)
+    {
+        NetOutgoingMessage message = netPeerKinda.CreateMessage();
+        message.Write(theMessage);
+        netClient.SendMessage(message, NetDeliveryMethod.ReliableOrdered);
     }
 }

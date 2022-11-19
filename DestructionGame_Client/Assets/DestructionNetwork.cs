@@ -8,7 +8,7 @@ public abstract class DestructionNetwork : MonoBehaviour
 {
     public NetPeerConfiguration netConfiguration;
     public NetPeer netPeerKinda;
-    public bool isClient;
+    //public bool isClient;
 
     // Update is called once per frame
     protected virtual void Update()
@@ -22,32 +22,11 @@ public abstract class DestructionNetwork : MonoBehaviour
         foreach (NetIncomingMessage message in incomingMessages)
         {
             Debug.Log($"Message recieved of type {message.MessageType.ToString()}");
-            //if (message.MessageType == NetIncomingMessageTyp)
+            if (message.MessageType == NetIncomingMessageType.Data)
+            {
+                string theMessage = message.ReadString();
+                Debug.Log($"data message had a string: {theMessage}");
+            }
         }
     }
-
-    public void TestSendMessage(string theMessage)
-    {
-        NetOutgoingMessage message = netPeerKinda.CreateMessage();
-        message.Write(theMessage);
-        if (isClient)
-        {
-            //netPeerKinda = (NetClient)netPeerKinda;
-            //netPeerKinda = netPeerKinda as NetClient;
-            //netPeerKinda.SendMessage();
-            NetClient netClient = netPeerKinda as NetClient;
-            netClient.SendMessage(message, NetDeliveryMethod.ReliableOrdered);
-        }
-        else
-        {
-            // netPeerKinda.SendMessage()
-            //NetServer netServer = netPeerKinda as NetServer;
-           // netServer.SendMessage(message, )
-        }
-        //netPeerKinda.SendMessage(message, )
-        //NetClient net = new NetClient(netConfiguration);
-        //net.SendMessage()
-    }
-
-
 }

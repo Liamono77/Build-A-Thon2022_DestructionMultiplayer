@@ -21,7 +21,11 @@ public abstract class DestructionNetwork : MonoBehaviour
         foreach (NetIncomingMessage message in incomingMessages)
         {
             Debug.Log($"Message recieved of type {message.MessageType.ToString()}");
-            //if (message.MessageType == NetIncomingMessageTyp)
+            if (message.MessageType == NetIncomingMessageType.Data)
+            {
+                string theMessage = message.ReadString();
+                Debug.Log($"data message had a string: {theMessage}");
+            }
         }
     }
 
