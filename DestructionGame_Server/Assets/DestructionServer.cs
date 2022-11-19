@@ -54,11 +54,6 @@ public class DestructionServer : DestructionNetwork
         }
     }
 
-   // public void GenericRPC()
-   // {
-  //      Debug.Log($"This is a generic RPC that has been called remotely!");
-  //  }
-
     //These two CallRPCS are for sending rpcs to specific clients
     public void CallRPC(string theMessage, NetConnection recipient, params object[] parameters)
     {
@@ -70,6 +65,7 @@ public class DestructionServer : DestructionNetwork
         message.Write(theMessage);
         WriteRPCParameters(message, parameters);
         netServer.SendMessage(message, recipient, netDeliveryMethod);
+        Debug.Log($"Sent RPC for function {theMessage} to player of ID {recipient.RemoteUniqueIdentifier}");
     }
 
     //These two are for sending rpcs all clients
@@ -83,6 +79,8 @@ public class DestructionServer : DestructionNetwork
         message.Write(theMessage);
         WriteRPCParameters(message, parameters);
         netServer.SendToAll(message, netDeliveryMethod);
+        Debug.Log($"Sent RPC for function {theMessage} to all players");
+
     }
 
     [System.Serializable]

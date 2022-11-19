@@ -25,6 +25,9 @@ public abstract class DestructionNetwork : MonoBehaviour
             if (message.MessageType == NetIncomingMessageType.Data)
             {
                 string functionName = message.ReadString();
+
+                Debug.Log($"Received an RPC call for function {functionName} from sender of ID {message.SenderConnection.RemoteUniqueIdentifier}");
+
                 Component[] myScripts = gameObject.GetComponents<MonoBehaviour>();
                 foreach (MonoBehaviour script in myScripts)
                 {
@@ -40,14 +43,14 @@ public abstract class DestructionNetwork : MonoBehaviour
 
     public object[] ReadRPCParameters(NetIncomingMessage message)
     {
-        Debug.Log($"Attempting to read RPC parameters...");
+ //       Debug.Log($"Attempting to read RPC parameters...");
 
         List<object> parameters = new List<object>();
 
         parameters.Add(message.SenderConnection); //this is to allow the server to have Power and Authority. Easily check RPCs before calling them using this first parameter
 
         string parametersDefinition = message.ReadString();
-        Debug.Log($"Parameters definition was read as {parametersDefinition}");
+ //       Debug.Log($"Parameters definition was read as {parametersDefinition}");
 
         foreach (char character in parametersDefinition)
         {
@@ -56,25 +59,25 @@ public abstract class DestructionNetwork : MonoBehaviour
             {
                 var parameter = message.ReadInt32();
                 parameters.Add(parameter);
-                Debug.Log($"added an integer of value {parameter}");
+ //               Debug.Log($"added an integer of value {parameter}");
             }
             else if (character == 'F')
             {
                 var parameter = message.ReadFloat();
                 parameters.Add(parameter);
-                Debug.Log($"added a float of value {parameter}");
+ //               Debug.Log($"added a float of value {parameter}");
             }
             else if (character == 'S')
             {
                 var parameter = message.ReadString();
                 parameters.Add(parameter);
-                Debug.Log($"added a string of value {parameter}");
+//                Debug.Log($"added a string of value {parameter}");
             }
             else if (character == 'B')
             {
                 var parameter = message.ReadBoolean();
                 parameters.Add(parameter);
-                Debug.Log($"added a boolean of value {parameter}");
+//                Debug.Log($"added a boolean of value {parameter}");
             }
             else
             {
@@ -86,7 +89,7 @@ public abstract class DestructionNetwork : MonoBehaviour
 
     public void WriteRPCParameters(NetOutgoingMessage message, params object[] parameters)
     {
-        Debug.Log($"Attempting to write RPC parameter definitions...");
+//        Debug.Log($"Attempting to write RPC parameter definitions...");
         string parametersDefinition = "";
         foreach (object obj in parameters)
         {
@@ -111,38 +114,38 @@ public abstract class DestructionNetwork : MonoBehaviour
                 Debug.LogError($"Failed to determine object type when writig a parameter definition for object {obj}");
             }
         }
-        Debug.Log($"Writing parameter definition as {parametersDefinition}");
+//        Debug.Log($"Writing parameter definition as {parametersDefinition}");
         message.Write(parametersDefinition);
 
-        Debug.Log($"attempting to write RPC parameter values...");
+ //       Debug.Log($"attempting to write RPC parameter values...");
         foreach (object obj in parameters)
         {
             if (obj is int)
             {
                 int theVariable = (int)obj;
                 message.Write(theVariable);
-                Debug.Log($"wrote an integer of value {theVariable}");
+ //               Debug.Log($"wrote an integer of value {theVariable}");
 
             }
             else if (obj is float)
             {
                 float theVariable = (float)obj;
                 message.Write(theVariable);
-                Debug.Log($"wrote a float of value {theVariable}");
+  //              Debug.Log($"wrote a float of value {theVariable}");
 
             }
             else if (obj is string)
             {
                 string theVariable = (string)obj;
                 message.Write(theVariable);
-                Debug.Log($"wrote a string of value {theVariable}");
+ //               Debug.Log($"wrote a string of value {theVariable}");
 
             }
             else if (obj is bool)
             {
                 bool theVariable = (bool)obj;
                 message.Write(theVariable);
-                Debug.Log($"wrote a boolean of value {theVariable}");
+ //               Debug.Log($"wrote a boolean of value {theVariable}");
 
             }
             else
@@ -150,7 +153,7 @@ public abstract class DestructionNetwork : MonoBehaviour
                 Debug.LogError($"Failed to determine object type when writig a parameter value for object {obj}");
             }
         }
-        Debug.Log($"Finished writing RPC parameters of definition {parametersDefinition}");
+//        Debug.Log($"Finished writing RPC parameters of definition {parametersDefinition}");
     }
 }
 

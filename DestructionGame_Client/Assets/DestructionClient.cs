@@ -50,6 +50,7 @@ public class DestructionClient : DestructionNetwork
         message.Write(theMessage);
         WriteRPCParameters(message, parameters);
         netClient.SendMessage(message, netDeliveryMethod);
+        Debug.Log($"Sent RPC for function {theMessage} to the server");
     }
 
     public void RemoteDebugLog(NetConnection serverConnection, string theLog, int severity)
