@@ -2,14 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Lidgren.Network;
-public class DestructionServer : DestructionNetwork
+
+public class DestructionClient : DestructionNetwork
 {
+    public string address = "127.0.0.1";
     public int port = 603;
 
     // Start is called before the first frame update
     void Start()
     {
-        InitializeServerNet();
+        InitializeClientNet();
     }
 
     // Update is called once per frame
@@ -20,13 +22,11 @@ public class DestructionServer : DestructionNetwork
 
     }
 
-    public void InitializeServerNet()
+    public void InitializeClientNet()
     {
-        netConfiguration = new NetPeerConfiguration("DestructionNetwork")
-        {
-            Port = port,
-        };
-        netPeerKinda = new NetServer(netConfiguration);
+        netConfiguration = new NetPeerConfiguration("DestructionNetwork");
+        netPeerKinda = new NetClient(netConfiguration);
         netPeerKinda.Start();
+        netPeerKinda.Connect(host: address, port: port);
     }
 }
