@@ -8,6 +8,8 @@ public class DestructionClient : DestructionNetwork
     public string address = "127.0.0.1";
     public int port = 603;
 
+    public bool testBool;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +21,11 @@ public class DestructionClient : DestructionNetwork
     protected override void Update()
     {
         base.Update();
-
+        if (testBool)
+        {
+            testBool = false;
+            TestSendMessage("HELLO");
+        }
     }
 
     public void InitializeClientNet()

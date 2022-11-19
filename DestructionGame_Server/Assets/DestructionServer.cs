@@ -6,6 +6,8 @@ public class DestructionServer : DestructionNetwork
 {
     public int port = 603;
 
+
+    public bool testbool;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +19,11 @@ public class DestructionServer : DestructionNetwork
     protected override void Update()
     {
         base.Update();
-
+        if (testbool)
+        {
+            testbool = false;
+            ShowMeTheConnections();
+        }
     }
 
     public void InitializeServerNet()
@@ -28,5 +34,14 @@ public class DestructionServer : DestructionNetwork
         };
         netPeerKinda = new NetServer(netConfiguration);
         netPeerKinda.Start();
+    }
+
+    public void ShowMeTheConnections()
+    {
+        NetServer netServer = netPeerKinda as NetServer;
+        foreach (NetConnection connection in netServer.Connections)
+        {
+            Debug.Log($"player is connected with an ID of {connection.RemoteUniqueIdentifier}");
+        }
     }
 }
