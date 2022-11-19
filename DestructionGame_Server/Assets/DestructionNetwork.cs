@@ -23,11 +23,19 @@ public abstract class DestructionNetwork : MonoBehaviour
             Debug.Log($"Message recieved of type {message.MessageType.ToString()}");
             if (message.MessageType == NetIncomingMessageType.Data)
             {
-                string theMessage = message.ReadString();
-                Debug.Log($"data message had a string: {theMessage}");
+                string functionName = message.ReadString();
+                Component[] myScripts = gameObject.GetComponents<MonoBehaviour>();
+                foreach (MonoBehaviour script in myScripts)
+                {
+                    MethodInfo methodInfo = script.GetType().GetMethod(functionName);
+                    if (methodInfo != null)
+                    {
+                        methodInfo.Invoke(script, null);
+                    }
+                }
+               // string theMessage = message.ReadString();
+               // Debug.Log($"data message had a string: {theMessage}");
             }
         }
     }
-
-
 }

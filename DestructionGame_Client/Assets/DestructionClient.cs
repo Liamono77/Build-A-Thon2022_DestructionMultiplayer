@@ -25,7 +25,8 @@ public class DestructionClient : DestructionNetwork
         if (testBool)
         {
             testBool = false;
-            TestSendMessage("HELLO");
+            //TestSendMessage("HELLO");
+            TestSendMessage("GenericRPC");
         }
     }
 

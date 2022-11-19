@@ -44,4 +44,9 @@ public class DestructionServer : DestructionNetwork
             Debug.Log($"player is connected with an ID of {connection.RemoteUniqueIdentifier}");
         }
     }
+
+    public void GenericRPC()
+    {
+        Debug.Log($"This is a generic RPC that has been called remotely!");
+    }
 }
