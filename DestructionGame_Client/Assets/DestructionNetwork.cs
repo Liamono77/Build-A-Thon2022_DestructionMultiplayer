@@ -31,12 +31,56 @@ public abstract class DestructionNetwork : MonoBehaviour
                     MethodInfo methodInfo = script.GetType().GetMethod(functionName);
                     if (methodInfo != null)
                     {
-                        methodInfo.Invoke(script, null);
+                        methodInfo.Invoke(script, ReadRPCParameters(message));
                     }
                 }
             }
         }
     }
+
+    public object[] ReadRPCParameters(NetIncomingMessage message)
+    {
+        Debug.Log($"Attempting to read RPC parameters...");
+
+        List<object> parameters = new List<object>();
+        string parametersDefinition = message.ReadString();
+        Debug.Log($"Parameters definition was read as {parametersDefinition}");
+
+        foreach (char character in parametersDefinition)
+        {
+            //Debug.Log($"Attempting to read character {character}..");
+            if (character == 'I')
+            {
+                var parameter = message.ReadInt32();
+                parameters.Add(parameter);
+                Debug.Log($"added an integer of value {parameter}");
+            }
+            else if (character == 'F')
+            {
+                var parameter = message.ReadFloat();
+                parameters.Add(parameter);
+                Debug.Log($"added a float of value {parameter}");
+            }
+            else if (character == 'S')
+            {
+                var parameter = message.ReadString();
+                parameters.Add(parameter);
+                Debug.Log($"added a string of value {parameter}");
+            }
+            else if (character == 'B')
+            {
+                var parameter = message.ReadBoolean();
+                parameters.Add(parameter);
+                Debug.Log($"added a boolean of value {parameter}");
+            }
+            else
+            {
+                Debug.LogError($"Unrecognized parameter of character {character}");
+            }
+        }
+        return parameters.ToArray();
+    }
+
     public void WriteRPCParameters(NetOutgoingMessage message, params object[] parameters)
     {
         Debug.Log($"Attempting to write RPC parameter definitions...");

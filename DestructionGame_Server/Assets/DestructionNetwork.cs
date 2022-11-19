@@ -31,10 +31,123 @@ public abstract class DestructionNetwork : MonoBehaviour
                     MethodInfo methodInfo = script.GetType().GetMethod(functionName);
                     if (methodInfo != null)
                     {
-                        methodInfo.Invoke(script, null);
+                        methodInfo.Invoke(script, ReadRPCParameters(message));
                     }
                 }
             }
         }
     }
+
+    public object[] ReadRPCParameters(NetIncomingMessage message)
+    {
+        Debug.Log($"Attempting to read RPC parameters...");
+
+        List<object> parameters = new List<object>();
+        string parametersDefinition = message.ReadString();
+        Debug.Log($"Parameters definition was read as {parametersDefinition}");
+
+        foreach (char character in parametersDefinition)
+        {
+            //Debug.Log($"Attempting to read character {character}..");
+            if (character == 'I')
+            {
+                var parameter = message.ReadInt32();
+                parameters.Add(parameter);
+                Debug.Log($"added an integer of value {parameter}");
+            }
+            else if (character == 'F')
+            {
+                var parameter = message.ReadFloat();
+                parameters.Add(parameter);
+                Debug.Log($"added a float of value {parameter}");
+            }
+            else if (character == 'S')
+            {
+                var parameter = message.ReadString();
+                parameters.Add(parameter);
+                Debug.Log($"added a string of value {parameter}");
+            }
+            else if (character == 'B')
+            {
+                var parameter = message.ReadBoolean();
+                parameters.Add(parameter);
+                Debug.Log($"added a boolean of value {parameter}");
+            }
+            else
+            {
+                Debug.LogError($"Unrecognized parameter of character {character}");
+            }
+        }
+        return parameters.ToArray();
+    }
+
+    public void WriteRPCParameters(NetOutgoingMessage message, params object[] parameters)
+    {
+        Debug.Log($"Attempting to write RPC parameter definitions...");
+        string parametersDefinition = "";
+        foreach (object obj in parameters)
+        {
+            if (obj is int)
+            {
+                parametersDefinition = parametersDefinition + "I";
+            }
+            else if (obj is float)
+            {
+                parametersDefinition = parametersDefinition + "F";
+            }
+            else if (obj is string)
+            {
+                parametersDefinition = parametersDefinition + "S";
+            }
+            else if (obj is bool)
+            {
+                parametersDefinition = parametersDefinition + "B";
+            }
+            else
+            {
+                Debug.LogError($"Failed to determine object type when writig a parameter definition for object {obj}");
+            }
+        }
+        Debug.Log($"Writing parameter definition as {parametersDefinition}");
+        message.Write(parametersDefinition);
+
+        Debug.Log($"attempting to write RPC parameter values...");
+        foreach (object obj in parameters)
+        {
+            if (obj is int)
+            {
+                int theVariable = (int)obj;
+                message.Write(theVariable);
+                Debug.Log($"wrote an integer of value {theVariable}");
+
+            }
+            else if (obj is float)
+            {
+                float theVariable = (float)obj;
+                message.Write(theVariable);
+                Debug.Log($"wrote a float of value {theVariable}");
+
+            }
+            else if (obj is string)
+            {
+                string theVariable = (string)obj;
+                message.Write(theVariable);
+                Debug.Log($"wrote a string of value {theVariable}");
+
+            }
+            else if (obj is bool)
+            {
+                bool theVariable = (bool)obj;
+                message.Write(theVariable);
+                Debug.Log($"wrote a boolean of value {theVariable}");
+
+            }
+            else
+            {
+                Debug.LogError($"Failed to determine object type when writig a parameter value for object {obj}");
+            }
+        }
+        Debug.Log($"Finished writing RPC parameters of definition {parametersDefinition}");
+    }
 }
+

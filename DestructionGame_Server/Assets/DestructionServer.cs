@@ -49,4 +49,23 @@ public class DestructionServer : DestructionNetwork
     {
         Debug.Log($"This is a generic RPC that has been called remotely!");
     }
+
+    [System.Serializable]
+    public class DemonstrationPlayer
+    {
+        public string theName;
+        public bool isbadguy;
+        public int playerClass;
+        public float health = 50f;
+    }
+    public List<DemonstrationPlayer> demonstrationPlayers = new List<DemonstrationPlayer>();
+    public void DemoMakeAPlayer(string newName, bool isbadguy, int playerClass)
+    {
+        DemonstrationPlayer newPlayer = new DemonstrationPlayer();
+        newPlayer.theName = newName;
+        newPlayer.isbadguy = isbadguy;
+        newPlayer.playerClass = playerClass;
+        demonstrationPlayers.Add(newPlayer);
+        //Debug.Log($"This is a generic RPC that has been called remotely!");
+    }
 }

@@ -27,7 +27,11 @@ public class DestructionClient : DestructionNetwork
             testBool = false;
             //TestSendMessage("HELLO");
             //TestSendMessage("GenericRPC", 20, false, "LOL");
-            TestSendMessage("GenericRPC", "LOL", false, 20, 12.45f);
+            //TestSendMessage("GenericRPC", "LOL", false, 20, 12.45f);
+            TestSendMessage("DemoMakeAPlayer", "Johnson", false, 2);
+            TestSendMessage("DemoMakeAPlayer", "Hector", true, 1);
+
+
 
         }
     }
