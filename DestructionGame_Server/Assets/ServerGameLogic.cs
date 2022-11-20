@@ -99,6 +99,16 @@ public class ServerGameLogic : MonoBehaviour
 
     }
 
+    public void UpdateInputs(NetConnection sender, float xPos1, float yPos1, float zPos1, float xPos2, float yPos2)
+    {
+        PlayerConnection playerToUpdate = GetPlayer(sender);
+        Vector3 cursorPosition = new Vector3(xPos1, yPos1, zPos1);
+        Vector2 inputVector = new Vector2(xPos2, yPos2);
+        playerToUpdate.cursorPosition = cursorPosition;
+        playerToUpdate.moveInput = inputVector;
+       // if (player)
+    }
+
     public void AssignToTeam(PlayerConnection player)
     {
         
