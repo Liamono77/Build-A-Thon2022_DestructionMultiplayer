@@ -31,6 +31,7 @@ public class ClientGameLogic : MonoBehaviour
         connecting,
         Lobby,
         CountDown,
+        dying,
         respawning,
         playing,
     }
