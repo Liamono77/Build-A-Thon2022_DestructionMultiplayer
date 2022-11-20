@@ -42,6 +42,11 @@ public class ClientGameLogic : MonoBehaviour
         clientGameLogic = this;
     }
 
+    public void RespawnButton()
+    {
+
+    }
+
     public void ConnectButton()
     {
         // client.InitializeClientNet(inputFieldAdd.text, int.Parse(inputFieldPort.text));
@@ -78,6 +83,14 @@ public class ClientGameLogic : MonoBehaviour
         clientState = ClientState.respawning;
 
     }
+
+    //RPC to set team
+    public void SetMyTeamID(NetConnection serverConnection, int ateamID)
+    {
+        teamID = ateamID;
+        Debug.Log($"Assigned to team {teamID}");
+    }
+
     //RPC from the server when connection is successful
     public void HandshakeFromServer(NetConnection serverconnection, string GameState)//, int team)
     {

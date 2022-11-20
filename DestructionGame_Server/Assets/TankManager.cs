@@ -26,23 +26,54 @@ public class TankManager : MonoBehaviour
 
     public void StartTheGame()
     {
-        bool TeamToggler = false;
+       // bool TeamToggler = false;
         foreach (PlayerConnection player in serverLogic.playerConnections)
         {
-            if (TeamToggler == true)
-            {
-                AssignPlayerToTeam(player, 0);
-            }
-            if (TeamToggler == false)
-            {
-                AssignPlayerToTeam(player, 1);
-            }
+            AssignPlayerToTeam(player);//, 12);
+      //      if (TeamToggler == true)
+      //      {
+     //           AssignPlayerToTeam(player, 0);
+     //       }
+     //       if (TeamToggler == false)
+    //        {
+    //            AssignPlayerToTeam(player, 1);
+   //         }
         }
     }
-    public void AssignPlayerToTeam(PlayerConnection player, int TeamID)
+    public void AssignPlayerToTeam(PlayerConnection player)//, int TeamID)
     {
-        player.teamID = TeamID;
-        serverLogic.server.CallRPC("SetMyTeamID", player.connection, TeamID);
+        int team0Count = 0;
+        int team1Count = 0;
+        foreach (PlayerConnection play in serverLogic.playerConnections)
+        {
+            Debug.Log($"checking team of player of ID {player.connection.RemoteUniqueIdentifier}...");
+            if (play.teamID == 0)
+            {
+                team0Count++;
+            }
+            if (play.teamID == 1)
+            {
+                team1Count++;
+            }
+        }
+
+        if (team0Count >= team1Count)
+        {
+            player.teamID = 1;
+            serverLogic.server.CallRPC("SetMyTeamID", player.connection, 1);
+        }
+        if (team1Count > team0Count)
+        {
+            player.teamID = 0;
+            serverLogic.server.CallRPC("SetMyTeamID", player.connection, player.teamID);
+
+            //serverLogic.server.CallRPC("SetMyTeamID", player.connection, 1);
+
+        }
+
+
+        //  player.teamID = TeamID;
+        // serverLogic.server.CallRPC("SetMyTeamID", player.connection, TeamID);
     }
 
     //RPC requesting to spawn

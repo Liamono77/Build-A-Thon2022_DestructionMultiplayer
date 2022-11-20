@@ -6,7 +6,7 @@ using Lidgren.Network;
 public class PlayerConnection
 {
     public string Name;
-    public int teamID;
+    public int teamID = 20;
     public NetConnection connection;
     public bool readyStatus;
 
@@ -25,6 +25,8 @@ public class ServerGameLogic : MonoBehaviour
     public GameObject playerTankPrefab;
 
     public NetSyncManager netSyncManager;
+
+    public TankManager tankManager;
 
 
     public List<PlayerConnection> playerConnections;
@@ -96,6 +98,12 @@ public class ServerGameLogic : MonoBehaviour
             playerConnections.Add(newPlayer);
             Debug.LogWarning($"Player of ID {sender.RemoteUniqueIdentifier} has joined");
             server.CallRPC("HandshakeFromServer", sender, gameState.ToString());
+
+            if (gameState == GameState.Playing)
+            {
+                tankManager.AssignPlayerToTeam(newPlayer);
+               // server.CallRPC("RemoteDebugLog", sender, "SERVER MESSAGE: you have attempted to join an ongoing game", 1);
+            }
         }
         else
         {
@@ -139,6 +147,7 @@ public class ServerGameLogic : MonoBehaviour
     {
         server.CallRPC("StartGame");
         gameState = GameState.Playing;
+        tankManager.StartTheGame();
         //Put all game start functionality here
     }
 
