@@ -6,11 +6,16 @@ public class TankScript : DestructionNetSync
 {
     public PlayerConnection myConnection;
 
+    public Rigidbody rigidBody;
+
     public Transform myTurret;
+
+    public Vector2 targetVector;
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
+        rigidBody = GetComponent<Rigidbody>();
         //This is extremely hacky but seems to be the only way to get this working.
         ServerGameLogic.serverGameLogic.server.CallRPC("SetCurrentTank", myConnection.connection, networkID);
     }
@@ -19,6 +24,17 @@ public class TankScript : DestructionNetSync
     protected override void Update()
     {
         base.Update();
+        RotateTowardsInput();
+        //FaceCursor();
+        //rigidBody.AddForce()
+    }
+    public void RotateTowardsInput()
+    {
+        //Vector2 currentDirection = transform.position.
+        targetVector = new Vector2(transform.position.x, transform.position.z) + myConnection.moveInput;
+
+        //targetVector = targetVector + myConnection.moveInput;
+
 
     }
 

@@ -9,7 +9,7 @@ public class DestructionNetSyncClient : MonoBehaviour
     public Vector3 latestPosition;
     public Quaternion latestRotation;
 
-    public float lerpFactor = 1f;
+    public float lerpFactor = 2000f;
 
     public ObjectType objectType;
     public enum ObjectType
@@ -30,8 +30,11 @@ public class DestructionNetSyncClient : MonoBehaviour
     {
         if (objectType == ObjectType.tank)
         {
-            transform.position = Vector3.Lerp(transform.position, latestPosition, Time.deltaTime * lerpFactor);
-            transform.rotation = Quaternion.Lerp(transform.rotation, latestRotation, Time.deltaTime * lerpFactor);
+           // transform.position = Vector3.Lerp(transform.position, latestPosition, Time.deltaTime * lerpFactor);
+          //  transform.rotation = Quaternion.Lerp(transform.rotation, latestRotation, Time.deltaTime * lerpFactor);
+
+            transform.position = Vector3.MoveTowards(transform.position, latestPosition, Time.deltaTime * lerpFactor);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, latestRotation, Time.deltaTime * lerpFactor);
         }
     }
 }

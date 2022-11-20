@@ -15,7 +15,7 @@ MonoBehaviour:
   networkID: 0
   latestPosition: {x: 0, y: 0, z: 0}
   latestRotation: {x: 0, y: 0, z: 0, w: 0}
-  lerpFactor: 1
+  lerpFactor: 2000
   objectType: 1
 --- !u!1001 &5398453978572101287
 PrefabInstance:
