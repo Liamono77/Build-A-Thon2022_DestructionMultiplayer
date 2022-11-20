@@ -12,6 +12,7 @@ public class ClientGameLogic : MonoBehaviour
 
     public GameObject connectScreen;
     public GameObject connectingScreen;
+    public GameObject lobbyScreen;
     //public 
 
     public DestructionClient client;
@@ -47,9 +48,9 @@ public class ClientGameLogic : MonoBehaviour
         client.CallRPC("ConnectionRequest", inputFieldAdd.text);
         clientState = ClientState.connecting;
     }
-    public void ReadyButton()
+    public void ReadyButton(Toggle theTog)
     {
-
+        client.CallRPC("ReadyRequest", theTog.isOn);
     }
 
     // Update is called once per frame
@@ -57,6 +58,8 @@ public class ClientGameLogic : MonoBehaviour
     {
         connectScreen.SetActive(clientState == ClientState.notConnected);
         connectingScreen.SetActive(clientState == ClientState.connecting);
+        lobbyScreen.SetActive(clientState == ClientState.Lobby);
+
         //connec
         if (testBool)
         {
@@ -69,7 +72,12 @@ public class ClientGameLogic : MonoBehaviour
 
     }
 
+    //RPC to start a game
+    public void StartGame(NetConnection serverConnection)
+    {
+        clientState = ClientState.respawning;
 
+    }
     //RPC from the server when connection is successful
     public void HandshakeFromServer(NetConnection serverconnection, string GameState)//, int team)
     {

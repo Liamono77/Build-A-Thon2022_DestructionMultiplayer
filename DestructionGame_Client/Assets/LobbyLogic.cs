@@ -2,13 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankManager : MonoBehaviour
+public class LobbyLogic : MonoBehaviour
 {
-    public GameObject tankPrefab;
-    public List<TankScript> Team1Tanks;
-    public List<TankScript> Team2Tanks;
-   // public List<>
-    
     // Start is called before the first frame update
     void Start()
     {
@@ -21,5 +16,3 @@ public class TankManager : MonoBehaviour
         
     }
 }
-
-

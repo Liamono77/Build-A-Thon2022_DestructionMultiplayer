@@ -8,6 +8,8 @@ public class PlayerConnection
     public string Name;
     public int teamID;
     public NetConnection connection;
+    public bool readyStatus;
+
     public TankScript currentTank;
 
     public Vector3 cursorPosition;
@@ -38,6 +40,9 @@ public class ServerGameLogic : MonoBehaviour
         GameOver,
     }
 
+    public int minumumPlayersToStartGame = 1;
+    //public bool teamToggler
+
     private void Awake()
     {
         serverGameLogic = this;
@@ -46,13 +51,13 @@ public class ServerGameLogic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     [System.Serializable]
@@ -106,7 +111,35 @@ public class ServerGameLogic : MonoBehaviour
         Vector2 inputVector = new Vector2(xPos2, yPos2);
         playerToUpdate.cursorPosition = cursorPosition;
         playerToUpdate.moveInput = inputVector;
-       // if (player)
+        // if (player)
+    }
+
+    public void ReadyRequest(NetConnection sender, bool theBool)
+    {
+        if (gameState == GameState.Lobby)
+        {
+            GetPlayer(sender).readyStatus = theBool;
+
+            int readycount = 0;
+            foreach (PlayerConnection player in playerConnections)
+            {
+                if (player.readyStatus == true)
+                {
+                    readycount++;
+                }
+            }
+            if (readycount >= minumumPlayersToStartGame)
+            {
+                StartGame();
+            }
+        }
+    }
+
+    public void StartGame()
+    {
+        server.CallRPC("StartGame");
+        gameState = GameState.Playing;
+        //Put all game start functionality here
     }
 
     public void AssignToTeam(PlayerConnection player)
