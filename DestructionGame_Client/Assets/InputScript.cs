@@ -7,6 +7,9 @@ public class InputScript : MonoBehaviour
     public Vector3 thePos;
     public Vector2 moveVector;
     public GameObject indicator;
+
+    public float inputUpdateDelay = .1f;
+    public float inputUpdateTimer;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +21,11 @@ public class InputScript : MonoBehaviour
     {
         convertMouseToLook();
         GetWASD();
+        if (inputUpdateTimer < Time.time)
+        {
+            inputUpdateTimer = Time.time + inputUpdateDelay;
+            SendInputsToServer();
+        }
     }
 
     public void convertMouseToLook()
@@ -36,6 +44,9 @@ public class InputScript : MonoBehaviour
 
     public void SendInputsToServer()
     {
-        ClientGameLogic.clientGameLogic.client.CallRPC("UpdateInputs", thePos.x, thePos.y, thePos.z, moveVector.x, moveVector.y);
+        if (ClientGameLogic.clientGameLogic.clientState != ClientGameLogic.ClientState.notConnected)
+        {
+            ClientGameLogic.clientGameLogic.client.CallRPC("UpdateInputs", Lidgren.Network.NetDeliveryMethod.UnreliableSequenced, thePos.x, thePos.y, thePos.z, moveVector.x, moveVector.y);
+        }
     }
 }
