@@ -83,6 +83,7 @@ public class TankManager : MonoBehaviour
         if (senderPlayer.teamID == 0)
         {
             team0.SpawnTank(senderPlayer);
+            //serverLogic.server.CallRPC("SetCurrentTank", )
         }
         if (senderPlayer.teamID == 1)
         {

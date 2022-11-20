@@ -12,25 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10e2d2fdb70c2cb4f8b2a09ce95105df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myTurret: {fileID: 8559861790696820227}
---- !u!114 &3455563446227074310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1457607316446534701}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bab55e73df3bef2419fb802ec16aafb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   networkID: 0
   originalPrefab: {fileID: 1457607316446534701}
   healthCurrent: 50
   healthMax: 50
   isStationary: 0
   manager: {fileID: 0}
+  myConnection:
+    Name: 
+    teamID: 20
+    readyStatus: 0
+    currentTank: {fileID: 0}
+    cursorPosition: {x: 0, y: 0, z: 0}
+    moveInput: {x: 0, y: 0}
+  myTurret: {fileID: 8559861790696820227}
 --- !u!1001 &1800067592971575676
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -84,7 +79,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e9d9c6f6357a0ce408c462ec0ede0343, type: 3}
       propertyPath: m_Name
-      value: PlayerTank Variant
+      value: PlayerTank0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9d9c6f6357a0ce408c462ec0ede0343, type: 3}

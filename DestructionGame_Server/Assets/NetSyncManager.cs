@@ -35,7 +35,7 @@ public class NetSyncManager : MonoBehaviour
             {
                 //float xPos = netSync.
                 //ServerGameLogic.serverGameLogic.server.CallRPC("SyncUpdate", NetDeliveryMethod.UnreliableSequenced, netSync.networkID, );
-                TankScript tankToUpdate = netSync.gameObject.GetComponent<TankScript>();
+                //TankScript tankToUpdate = netSync.gameObject.GetComponent<TankScript>();
 
             }
         }
@@ -49,7 +49,13 @@ public class NetSyncManager : MonoBehaviour
     {
         netSync.networkID = GetNewNetworkID();
 
-        ServerGameLogic.serverGameLogic.server.CallRPC("InstantiateNetObject", netSync.originalPrefab.name, netSync.networkID, netSync.transform.position.x, netSync.transform.position.y, netSync.transform.position.z, netSync.transform.rotation.w, netSync.transform.rotation.x, netSync.transform.position.y, netSync.transform.position.z);
+        //string originalName = netSync.originalPrefab.name.Replace(netSync.originalPrefab.name, "lol");
+        string originalName = netSync.gameObject.name.Replace("(Clone)", "");
+
+       // Debug.Log($"changed prefab name from {netSync.originalPrefab.name} to {originalName}");
+
+        //ServerGameLogic.serverGameLogic.server.CallRPC("InstantiateNetObject", netSync.originalPrefab.name, netSync.networkID, netSync.transform.position.x, netSync.transform.position.y, netSync.transform.position.z, netSync.transform.rotation.w, netSync.transform.rotation.x, netSync.transform.position.y, netSync.transform.position.z);
+        ServerGameLogic.serverGameLogic.server.CallRPC("InstantiateNetObject", originalName, netSync.networkID, netSync.transform.position.x, netSync.transform.position.y, netSync.transform.position.z, netSync.transform.rotation.w, netSync.transform.rotation.x, netSync.transform.position.y, netSync.transform.position.z);
 
         netSyncs.Add(netSync);
     }

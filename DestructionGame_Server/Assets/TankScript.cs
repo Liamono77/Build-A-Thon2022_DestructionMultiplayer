@@ -2,21 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TankScript : MonoBehaviour
+public class TankScript : DestructionNetSync
 {
     public PlayerConnection myConnection;
 
     public Transform myTurret;
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
-        
+        base.Start();
+        //This is extremely hacky but seems to be the only way to get this working.
+        ServerGameLogic.serverGameLogic.server.CallRPC("SetCurrentTank", myConnection.connection, networkID);
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
-        
+        base.Update();
+
     }
 
     public void FaceCursor()

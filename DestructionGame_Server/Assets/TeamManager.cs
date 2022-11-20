@@ -35,7 +35,7 @@ public class TeamManager : MonoBehaviour
             newTank.myConnection = connection;
             connection.currentTank = newTank;
 
-            //ServerGameLogic.serverGameLogic.server.CallRPC("")
+            //ServerGameLogic.serverGameLogic.server.CallRPC("SetCurrentTank", );
             //return newTank;
             tankScripts.Add(newTank);
         }
@@ -43,5 +43,6 @@ public class TeamManager : MonoBehaviour
         {
             Debug.LogWarning("Player has attempted to spawn a tank but already has one");
         }
+        //return null;
     }
 }

@@ -13,7 +13,10 @@ public class ClientGameLogic : MonoBehaviour
     public GameObject connectScreen;
     public GameObject connectingScreen;
     public GameObject lobbyScreen;
+    public GameObject spawnScreen;
     //public 
+
+    public NetSyncManager netSyncManager;
 
     public DestructionClient client;
 
@@ -29,10 +32,12 @@ public class ClientGameLogic : MonoBehaviour
         Lobby,
         CountDown,
         respawning,
-
+        playing,
     }
 
     public int teamID;
+
+    public DestructionNetSyncClient currentTank;
     //public 
 
 
@@ -44,7 +49,7 @@ public class ClientGameLogic : MonoBehaviour
 
     public void RespawnButton()
     {
-
+        client.CallRPC("SpawnRequest");
     }
 
     public void ConnectButton()
@@ -64,6 +69,8 @@ public class ClientGameLogic : MonoBehaviour
         connectScreen.SetActive(clientState == ClientState.notConnected);
         connectingScreen.SetActive(clientState == ClientState.connecting);
         lobbyScreen.SetActive(clientState == ClientState.Lobby);
+        spawnScreen.SetActive(clientState == ClientState.respawning);
+
 
         //connec
         if (testBool)
@@ -82,6 +89,19 @@ public class ClientGameLogic : MonoBehaviour
     {
         clientState = ClientState.respawning;
 
+    }
+
+    public void SetCurrentTank(NetConnection serverConnection, int networkID)
+    {
+        currentTank = netSyncManager.GetNetSync(networkID);
+        if (currentTank != null)
+        {
+            clientState = ClientState.playing;
+        }
+        else
+        {
+            Debug.LogError($"Failed to set current tank from remote procedure call. Was not able to locate tank of ID {networkID}");
+        }
     }
 
     //RPC to set team
