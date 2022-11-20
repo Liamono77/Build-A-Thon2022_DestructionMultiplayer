@@ -35,7 +35,8 @@ public class NetSyncManager : MonoBehaviour
             {
                 //float xPos = netSync.
                 //ServerGameLogic.serverGameLogic.server.CallRPC("SyncUpdate", NetDeliveryMethod.UnreliableSequenced, netSync.networkID, );
-                //TankScript tankToUpdate = netSync.gameObject.GetComponent<TankScript>()
+                TankScript tankToUpdate = netSync.gameObject.GetComponent<TankScript>();
+
             }
         }
     }
