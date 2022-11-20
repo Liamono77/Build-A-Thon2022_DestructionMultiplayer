@@ -6,6 +6,9 @@ using Lidgren.Network;
 public class NetSyncManager : MonoBehaviour
 {
     public List<DestructionNetSyncClient> netSyncs = new List<DestructionNetSyncClient>();
+
+    public List<int> netIDsMissing;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +25,12 @@ public class NetSyncManager : MonoBehaviour
     public void InstantiateNetObject(NetConnection connection, string prefabName, int networkID, float xPos, float yPos, float zPos, float wRot, float xRot, float yRot, float zRot)
     {
 
+        if (netIDsMissing.Contains(networkID))
+        {
+            Debug.Log($"Received network object that this client was missing (ID {networkID}, name {prefabName})");
+            netIDsMissing.Remove(networkID);
+        }
+
         Debug.Log($"Received request to instantiate an object with prefab name {prefabName}");
         Vector3 position = new Vector3(xPos, yPos, zPos);
         Quaternion rotation = new Quaternion(xRot, yRot, zRot, wRot);
@@ -35,8 +44,12 @@ public class NetSyncManager : MonoBehaviour
     public void SyncUpdateTank(NetConnection server, int networkID, float xPos, float yPos, float zPos, float wRot, float xRot, float yRot, float zRot)
     {
         DestructionNetSyncClient tankToUpdate = GetNetSync(networkID);
-        tankToUpdate.latestPosition = new Vector3(xPos, yPos, zPos);
-        tankToUpdate.latestRotation = new Quaternion(xRot, yRot, zRot, wRot);
+        if (tankToUpdate != null)
+        {
+            tankToUpdate.latestPosition = new Vector3(xPos, yPos, zPos);
+            tankToUpdate.latestRotation = new Quaternion(xRot, yRot, zRot, wRot);
+        }
+
     }
 
     public DestructionNetSyncClient GetNetSync(int ID)
@@ -49,6 +62,15 @@ public class NetSyncManager : MonoBehaviour
             }
         }
         Debug.LogError($"Client has attempted to get a NetSync of ID {ID}, which doesn't exist");
+
+
+        //Attempt to request the missing object if manager is not waiting for server response
+        if (netIDsMissing.Contains(ID) == false)
+        {
+            netIDsMissing.Add(ID);
+            Debug.LogError($"Requesting object of ID {ID}");
+            ClientGameLogic.clientGameLogic.client.CallRPC("RequestObject", ID);
+        }
         return null;
     }
 }

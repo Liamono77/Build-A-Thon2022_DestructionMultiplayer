@@ -49,15 +49,10 @@ public class NetSyncManager : MonoBehaviour
     public void AddNetSyncObject(DestructionNetSync netSync)
     {
         netSync.networkID = GetNewNetworkID();
+        //string originalName = netSync.gameObject.name.Replace("(Clone)", "");
 
-        //string originalName = netSync.originalPrefab.name.Replace(netSync.originalPrefab.name, "lol");
-        string originalName = netSync.gameObject.name.Replace("(Clone)", "");
-
-       // Debug.Log($"changed prefab name from {netSync.originalPrefab.name} to {originalName}");
-
-        //ServerGameLogic.serverGameLogic.server.CallRPC("InstantiateNetObject", netSync.originalPrefab.name, netSync.networkID, netSync.transform.position.x, netSync.transform.position.y, netSync.transform.position.z, netSync.transform.rotation.w, netSync.transform.rotation.x, netSync.transform.position.y, netSync.transform.position.z);
-        ServerGameLogic.serverGameLogic.server.CallRPC("InstantiateNetObject", originalName, netSync.networkID, netSync.transform.position.x, netSync.transform.position.y, netSync.transform.position.z, netSync.transform.rotation.w, netSync.transform.rotation.x, netSync.transform.rotation.y, netSync.transform.rotation.z);
-
+        //ServerGameLogic.serverGameLogic.server.CallRPC("InstantiateNetObject", GetPrefabName(netSync), netSync.networkID, netSync.transform.position.x, netSync.transform.position.y, netSync.transform.position.z, netSync.transform.rotation.w, netSync.transform.rotation.x, netSync.transform.rotation.y, netSync.transform.rotation.z);
+        SendNetworkObject(netSync);
         netSyncs.Add(netSync);
     }
     public void RemoveNetSyncObject(DestructionNetSync netSync)
@@ -78,7 +73,38 @@ public class NetSyncManager : MonoBehaviour
     {
         foreach (DestructionNetSync netSync in netSyncs)
         {
-            ServerGameLogic.serverGameLogic.server.CallRPC("InstantiateNetObject", sender, netSync.originalPrefab.name, netSync.networkID, netSync.transform.position.x, netSync.transform.position.y, netSync.transform.position.z, netSync.transform.rotation.w, netSync.transform.rotation.x, netSync.transform.position.y, netSync.transform.position.z);
+            //ServerGameLogic.serverGameLogic.server.CallRPC("InstantiateNetObject", sender, netSync.originalPrefab.name, netSync.networkID, netSync.transform.position.x, netSync.transform.position.y, netSync.transform.position.z, netSync.transform.rotation.w, netSync.transform.rotation.x, netSync.transform.position.y, netSync.transform.position.z);
+            SendNetworkObject(netSync, sender);
         }
+    }
+
+    //RPC from clients requesting a network object they're getting NRE's for
+    public void RequestObject(NetConnection sender, int networkID)
+    {
+        //server.CallRPC("")
+        foreach (DestructionNetSync netSync in netSyncs)
+        {
+            if (netSync.networkID == networkID)
+            {
+                //ServerGameLogic.serverGameLogic.server.CallRPC("InstantiateNetObject", sender, netSync.originalPrefab.name, netSync.networkID, netSync.transform.position.x, netSync.transform.position.y, netSync.transform.position.z, netSync.transform.rotation.w, netSync.transform.rotation.x, netSync.transform.position.y, netSync.transform.position.z);
+                SendNetworkObject(netSync, sender);
+            }
+        }
+    }
+
+    public void SendNetworkObject(DestructionNetSync netSync, NetConnection recipient) //This is the one 
+    {
+        ServerGameLogic.serverGameLogic.server.CallRPC("InstantiateNetObject", recipient, GetPrefabName(netSync), netSync.networkID, netSync.transform.position.x, netSync.transform.position.y, netSync.transform.position.z, netSync.transform.rotation.w, netSync.transform.rotation.x, netSync.transform.rotation.y, netSync.transform.rotation.z);
+        Debug.LogWarning($"An instantiation request from client of ID{recipient} for object of ID {netSync.networkID} has been responded to");
+    }
+    public void SendNetworkObject(DestructionNetSync netSync)
+    {
+        ServerGameLogic.serverGameLogic.server.CallRPC("InstantiateNetObject", GetPrefabName(netSync), netSync.networkID, netSync.transform.position.x, netSync.transform.position.y, netSync.transform.position.z, netSync.transform.rotation.w, netSync.transform.rotation.x, netSync.transform.rotation.y, netSync.transform.rotation.z);
+
+    }
+    public string GetPrefabName(DestructionNetSync netSync)
+    {
+        string originalName = netSync.gameObject.name.Replace("(Clone)", "");
+        return originalName;
     }
 }
