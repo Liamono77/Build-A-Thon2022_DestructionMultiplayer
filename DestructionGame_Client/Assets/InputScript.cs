@@ -38,8 +38,8 @@ public class InputScript : MonoBehaviour
     }
     public void GetWASD()
     {
-        moveVector.x = Input.GetAxis("Vertical");
-        moveVector.y = Input.GetAxis("Horizontal");
+        moveVector.x = Input.GetAxis("Horizontal");
+        moveVector.y = Input.GetAxis("Vertical");
     }
 
     public void SendInputsToServer()

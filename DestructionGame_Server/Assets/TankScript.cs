@@ -11,6 +11,20 @@ public class TankScript : DestructionNetSync
     public Transform myTurret;
 
     public Vector2 targetVector;
+
+
+    //copied over from tankdrive test script
+    public List<WheelCollider> leftWheels = new List<WheelCollider>();
+    public List<WheelCollider> rightWheels = new List<WheelCollider>();
+
+    public Vector2 inputVector;
+
+    public float wheelMultiplier = 2000;
+    public float breakTorque = 0f;
+
+
+
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -24,19 +38,43 @@ public class TankScript : DestructionNetSync
     protected override void Update()
     {
         base.Update();
-        RotateTowardsInput();
+        //RotateTowardsInput();
         //FaceCursor();
         //rigidBody.AddForce()
+        DriveFunct();
     }
     public void RotateTowardsInput()
     {
         //Vector2 currentDirection = transform.position.
-        targetVector = new Vector2(transform.position.x, transform.position.z) + myConnection.moveInput;
+        //targetVector = new Vector2(transform.position.x, transform.position.z) + myConnection.moveInput;
 
         //targetVector = targetVector + myConnection.moveInput;
 
 
     }
+
+    //copied from tankdrive test script
+    public void DriveFunct()
+    {
+        inputVector = myConnection.moveInput;
+        if (inputVector.magnitude > 1)
+        {
+            inputVector = inputVector.normalized;
+        }
+
+        foreach (WheelCollider wheel in leftWheels)
+        {
+            wheel.motorTorque = (inputVector.y + inputVector.x) * wheelMultiplier;
+            wheel.brakeTorque = breakTorque;
+        }
+        foreach (WheelCollider wheel in rightWheels)
+        {
+            wheel.motorTorque = (inputVector.y - inputVector.x) * wheelMultiplier;
+            wheel.brakeTorque = breakTorque;
+        }
+    }
+
+
 
     public void FaceCursor()
     {

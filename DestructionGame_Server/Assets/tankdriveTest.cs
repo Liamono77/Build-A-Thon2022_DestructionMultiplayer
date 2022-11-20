@@ -9,8 +9,8 @@ public class tankdriveTest : MonoBehaviour
 
     public Vector2 inputVector;
 
-    public float wheelMultiplier;
-    public float breakTorque = 10f;
+    public float wheelMultiplier = 2000;
+    public float breakTorque = 0f;
 
     // Start is called before the first frame update
     void Start()
