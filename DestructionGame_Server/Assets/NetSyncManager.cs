@@ -34,9 +34,10 @@ public class NetSyncManager : MonoBehaviour
             if (netSync.isStationary == false)
             {
                 //float xPos = netSync.
-                //ServerGameLogic.serverGameLogic.server.CallRPC("SyncUpdate", NetDeliveryMethod.UnreliableSequenced, netSync.networkID, );
+                //ServerGameLogic.serverGameLogic.server.CallRPC("SyncUpdateTank", NetDeliveryMethod.UnreliableSequenced, netSync.networkID, );
                 //TankScript tankToUpdate = netSync.gameObject.GetComponent<TankScript>();
-
+                TankScript tankToUpdate = netSync as TankScript;
+                ServerGameLogic.serverGameLogic.server.CallRPC("SyncUpdateTank", NetDeliveryMethod.UnreliableSequenced, tankToUpdate.networkID, tankToUpdate.transform.position.x, tankToUpdate.transform.position.y, tankToUpdate.transform.position.z, tankToUpdate.transform.rotation.w, tankToUpdate.transform.rotation.x, tankToUpdate.transform.position.y, tankToUpdate.transform.position.z);
             }
         }
     }

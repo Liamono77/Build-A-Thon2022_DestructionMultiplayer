@@ -18,14 +18,25 @@ public class NetSyncManager : MonoBehaviour
         
     }
 
+    //RPC to instantiate network objects
     public void InstantiateNetObject(NetConnection connection, string prefabName, int networkID, float xPos, float yPos, float zPos, float wRot, float xRot, float yRot, float zRot)
     {
+
         Debug.Log($"Received request to instantiate an object with prefab name {prefabName}");
         Vector3 position = new Vector3(xPos, yPos, zPos);
         Quaternion rotation = new Quaternion(wRot, xRot, yRot, zRot);
         DestructionNetSyncClient newSync = GameObject.Instantiate(Resources.Load<GameObject>(prefabName), position, rotation).GetComponent<DestructionNetSyncClient>();
+        newSync.latestRotation = rotation;
+        newSync.latestPosition = position;
         newSync.networkID = networkID;
         netSyncs.Add(newSync);
+    }
+
+    public void SyncUpdateTank(NetConnection server, int networkID, float xPos, float yPos, float zPos, float wRot, float xRot, float yRot, float zRot)
+    {
+        DestructionNetSyncClient tankToUpdate = GetNetSync(networkID);
+        tankToUpdate.latestPosition = new Vector3(xPos, yPos, zPos);
+        tankToUpdate.latestRotation = new Quaternion(wRot, xRot, yRot, zRot);
     }
 
     public DestructionNetSyncClient GetNetSync(int ID)

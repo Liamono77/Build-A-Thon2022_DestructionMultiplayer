@@ -5,15 +5,33 @@ using UnityEngine;
 public class DestructionNetSyncClient : MonoBehaviour
 {
     public int networkID;
+
+    public Vector3 latestPosition;
+    public Quaternion latestRotation;
+
+    public float lerpFactor = 1f;
+
+    public ObjectType objectType;
+    public enum ObjectType
+    {
+        stationary,
+        tank,
+        projectile
+    }
+
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
-        
+        if (objectType == ObjectType.tank)
+        {
+            transform.position = Vector3.Lerp(transform.position, latestPosition, Time.deltaTime * lerpFactor);
+            transform.rotation = Quaternion.Lerp(transform.rotation, latestRotation, Time.deltaTime * lerpFactor);
+        }
     }
 }
