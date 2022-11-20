@@ -24,7 +24,7 @@ public class NetSyncManager : MonoBehaviour
 
         Debug.Log($"Received request to instantiate an object with prefab name {prefabName}");
         Vector3 position = new Vector3(xPos, yPos, zPos);
-        Quaternion rotation = new Quaternion(wRot, xRot, yRot, zRot);
+        Quaternion rotation = new Quaternion(xRot, yRot, zRot, wRot);
         DestructionNetSyncClient newSync = GameObject.Instantiate(Resources.Load<GameObject>(prefabName), position, rotation).GetComponent<DestructionNetSyncClient>();
         newSync.latestRotation = rotation;
         newSync.latestPosition = position;
@@ -36,7 +36,7 @@ public class NetSyncManager : MonoBehaviour
     {
         DestructionNetSyncClient tankToUpdate = GetNetSync(networkID);
         tankToUpdate.latestPosition = new Vector3(xPos, yPos, zPos);
-        tankToUpdate.latestRotation = new Quaternion(wRot, xRot, yRot, zRot);
+        tankToUpdate.latestRotation = new Quaternion(xRot, yRot, zRot, wRot);
     }
 
     public DestructionNetSyncClient GetNetSync(int ID)

@@ -37,7 +37,7 @@ public class NetSyncManager : MonoBehaviour
                 //ServerGameLogic.serverGameLogic.server.CallRPC("SyncUpdateTank", NetDeliveryMethod.UnreliableSequenced, netSync.networkID, );
                 //TankScript tankToUpdate = netSync.gameObject.GetComponent<TankScript>();
                 TankScript tankToUpdate = netSync as TankScript;
-                ServerGameLogic.serverGameLogic.server.CallRPC("SyncUpdateTank", NetDeliveryMethod.UnreliableSequenced, tankToUpdate.networkID, tankToUpdate.transform.position.x, tankToUpdate.transform.position.y, tankToUpdate.transform.position.z, tankToUpdate.transform.rotation.w, tankToUpdate.transform.rotation.x, tankToUpdate.transform.position.y, tankToUpdate.transform.position.z);
+                ServerGameLogic.serverGameLogic.server.CallRPC("SyncUpdateTank", NetDeliveryMethod.UnreliableSequenced, tankToUpdate.networkID, tankToUpdate.transform.position.x, tankToUpdate.transform.position.y, tankToUpdate.transform.position.z, tankToUpdate.transform.rotation.w, tankToUpdate.transform.rotation.x, tankToUpdate.transform.rotation.y, tankToUpdate.transform.rotation.z);
             }
         }
     }
@@ -56,7 +56,7 @@ public class NetSyncManager : MonoBehaviour
        // Debug.Log($"changed prefab name from {netSync.originalPrefab.name} to {originalName}");
 
         //ServerGameLogic.serverGameLogic.server.CallRPC("InstantiateNetObject", netSync.originalPrefab.name, netSync.networkID, netSync.transform.position.x, netSync.transform.position.y, netSync.transform.position.z, netSync.transform.rotation.w, netSync.transform.rotation.x, netSync.transform.position.y, netSync.transform.position.z);
-        ServerGameLogic.serverGameLogic.server.CallRPC("InstantiateNetObject", originalName, netSync.networkID, netSync.transform.position.x, netSync.transform.position.y, netSync.transform.position.z, netSync.transform.rotation.w, netSync.transform.rotation.x, netSync.transform.position.y, netSync.transform.position.z);
+        ServerGameLogic.serverGameLogic.server.CallRPC("InstantiateNetObject", originalName, netSync.networkID, netSync.transform.position.x, netSync.transform.position.y, netSync.transform.position.z, netSync.transform.rotation.w, netSync.transform.rotation.x, netSync.transform.rotation.y, netSync.transform.rotation.z);
 
         netSyncs.Add(netSync);
     }
