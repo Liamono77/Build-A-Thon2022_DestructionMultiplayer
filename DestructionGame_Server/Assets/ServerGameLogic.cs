@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Lidgren.Network;
+[System.Serializable]
 public class PlayerConnection
 {
     public string Name;
+    public int teamID;
     public NetConnection connection;
     public TankScript currentTank;
 
@@ -39,6 +41,7 @@ public class ServerGameLogic : MonoBehaviour
     private void Awake()
     {
         serverGameLogic = this;
+        //gameState.to
     }
     // Start is called before the first frame update
     void Start()
@@ -82,10 +85,23 @@ public class ServerGameLogic : MonoBehaviour
             PlayerConnection newPlayer = new PlayerConnection();
             newPlayer.connection = sender;
             newPlayer.Name = name;
+
             //newPlayer.myTank = GameObject.Instantiate(playerTankPrefab)
             //SpawnTank(newPlayer,)
+            playerConnections.Add(newPlayer);
+            Debug.LogWarning($"Player of ID {sender.RemoteUniqueIdentifier} has joined");
+            server.CallRPC("HandshakeFromServer", sender, gameState.ToString());
+        }
+        else
+        {
+            Debug.LogWarning($"Player of ID {sender.RemoteUniqueIdentifier} has attempted to connect too many times");
         }
 
+    }
+
+    public void AssignToTeam(PlayerConnection player)
+    {
+        
     }
     public void SpawnTank(PlayerConnection connection, Transform spawnLocation)
     {

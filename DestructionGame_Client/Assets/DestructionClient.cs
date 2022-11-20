@@ -14,7 +14,7 @@ public class DestructionClient : DestructionNetwork
     // Start is called before the first frame update
     void Start()
     {
-        InitializeClientNet();
+        InitializeClientNet(address, port);
     }
 
     // Update is called once per frame
@@ -31,7 +31,7 @@ public class DestructionClient : DestructionNetwork
    //     }
     }
 
-    public void InitializeClientNet()
+    public void InitializeClientNet(string address, int port)
     {
         netConfiguration = new NetPeerConfiguration("DestructionNetwork");
         netPeerKinda = new NetClient(netConfiguration);
