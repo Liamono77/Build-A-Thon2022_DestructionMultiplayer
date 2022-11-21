@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4360531700676036228}
   - component: {fileID: 4360531700676036229}
   - component: {fileID: 7131263229636887496}
+  - component: {fileID: 6929018627722518073}
   m_Layer: 0
   m_Name: MuzzleFlashTemplate
   m_TagString: Untagged
@@ -150,6 +151,19 @@ MonoBehaviour:
   healthMax: 50
   healthUIPrefab: {fileID: 0}
   objectType: 3
+--- !u!114 &6929018627722518073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4360531700676036226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54465189c9853534095fcfcd7da8675b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundToSpawn: {fileID: 7048817723912181697, guid: 4dbceba8f400cb949bedab3c09b24d83, type: 3}
 --- !u!1 &4360531700958911727
 GameObject:
   m_ObjectHideFlags: 0

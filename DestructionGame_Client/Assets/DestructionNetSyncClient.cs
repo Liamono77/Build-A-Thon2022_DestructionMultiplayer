@@ -37,7 +37,7 @@ public class DestructionNetSyncClient : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        if (objectType == ObjectType.tank)
+        if (objectType == ObjectType.tank || objectType == ObjectType.projectile)
         {
            // transform.position = Vector3.Lerp(transform.position, latestPosition, Time.deltaTime * lerpFactor);
           //  transform.rotation = Quaternion.Lerp(transform.rotation, latestRotation, Time.deltaTime * lerpFactor);

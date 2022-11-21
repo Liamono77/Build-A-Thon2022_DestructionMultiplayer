@@ -26,7 +26,7 @@ public class TankScript : DestructionNetSync
 
 
     public float attackTimer;
-    public float attackDelay = 1f;
+    public float attackDelay = .25f;
 
     public Transform barrelEnd;
 
@@ -137,6 +137,7 @@ public class TankScript : DestructionNetSync
             Debug.Log($"Tank with player of name{myConnection.Name} has fired");
 
             GameObject.Instantiate(muzzleFlashFX, barrelEnd.position, barrelEnd.rotation);
+            GameObject.Instantiate(projectilePrefab, barrelEnd.position, barrelEnd.rotation);
         }
     }
 }

@@ -59,5 +59,9 @@ PrefabInstance:
       propertyPath: muzzleFlashFX
       value: 
       objectReference: {fileID: 2963119363899888178, guid: d346a5bfa53787a48a6ae37f5d939760, type: 3}
+    - target: {fileID: 3980501040325691729, guid: 7d20afb1d58816e499333ed31f968c36, type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 316743977720827622, guid: 742c8ff5cb3108749ba4e73abdbd63be, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d20afb1d58816e499333ed31f968c36, type: 3}

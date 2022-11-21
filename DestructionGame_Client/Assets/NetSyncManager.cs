@@ -54,6 +54,14 @@ public class NetSyncManager : MonoBehaviour
         }
 
     }
+    public void SyncUpdateProjectile(NetConnection server, int networkID, float xPos, float yPos, float zPos)
+    {
+        DestructionNetSyncClient projectileToUpdate = GetNetSync(networkID);
+        if (projectileToUpdate != null)
+        {
+            projectileToUpdate.latestPosition = new Vector3(xPos, yPos, zPos);
+        }
+    }
 
     public void UpdateHealth(NetConnection server, int networkID, float newHealth, int sourceNetworkID)
     {

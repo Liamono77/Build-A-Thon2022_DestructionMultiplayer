@@ -300,7 +300,7 @@ MonoBehaviour:
   attackTimer: 0
   attackDelay: 1
   barrelEnd: {fileID: 3359924408470277561}
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 1420763656681131117, guid: 86d5c89b0c115224a8eaee375f8f34bd, type: 3}
   muzzleFlashFX: {fileID: 4662420483119852701, guid: aef5c564802a1594fbda5a953fb6d232, type: 3}
 --- !u!1 &2691621626424950463
 GameObject:
@@ -574,7 +574,7 @@ GameObject:
   - component: {fileID: 7938408681050740359}
   m_Layer: 0
   m_Name: turrethitbox
-  m_TagString: Untagged
+  m_TagString: TankHurtbox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -811,7 +811,7 @@ GameObject:
   - component: {fileID: 6840900354273314248}
   - component: {fileID: 1279447806835485608}
   - component: {fileID: 1934906782462575337}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: barrelHitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1136,7 +1136,7 @@ GameObject:
   - component: {fileID: 796441063575532561}
   m_Layer: 0
   m_Name: bodyHitbox
-  m_TagString: Untagged
+  m_TagString: TankHurtbox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
