@@ -715,7 +715,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: CYBER TANKS
+  m_Text: CYBERTANKS
 --- !u!222 &154068000
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5063,7 +5063,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: CYBER TANKS
+  m_Text: CYBERTANKS
 --- !u!222 &1668183007
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5954,7 +5954,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: CYBER TANKS
+  m_Text: CYBERTANKS
 --- !u!222 &1979617923
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6033,7 +6033,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: CYBER TANKS
+  m_Text: CYBERTANKS
 --- !u!222 &2016091944
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6443,6 +6443,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1140901491894314444, guid: 2a4ac8f01b2575f4db60d0ff6aadc22a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1f83561f561f86647ba8389da7c934ad, type: 2}
     - target: {fileID: 1140901492373064928, guid: 2a4ac8f01b2575f4db60d0ff6aadc22a, type: 3}
       propertyPath: m_Name
       value: Mapz
