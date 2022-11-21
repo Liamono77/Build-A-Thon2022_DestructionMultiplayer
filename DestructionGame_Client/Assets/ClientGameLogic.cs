@@ -138,4 +138,11 @@ public class ClientGameLogic : MonoBehaviour
             Debug.LogError($"Failed to parse game state {GameState}!");
         }
     }
+
+    //RPC from server to check if client is still connected
+    public void ConnectionCheck(NetConnection serverConnection)
+    {
+        Debug.LogWarning("Server has requested connection check. Sending response...");
+        client.CallRPC("ConnectionCheckResponse");
+    }
 }

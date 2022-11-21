@@ -18,6 +18,8 @@ public class PlayerConnection
     public float fireTimer;
     public float fireDelay;
 
+    public bool isQuedForRemoval;
+
   //  public void AttemptToFire()
   //  {
        // if (fireTimer < Time.time)
@@ -57,6 +59,10 @@ public class ServerGameLogic : MonoBehaviour
     public int minumumPlayersToStartGame = 1;
     //public bool teamToggler
 
+    public bool kickingEnabled;
+    public float kickTimer;
+    public float kickDelay = 5f;
+
     private void Awake()
     {
         serverGameLogic = this;
@@ -71,7 +77,43 @@ public class ServerGameLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (kickingEnabled)
+        {
+            KickUpdateFunct();
+        }
+    }
+    
+    public void KickUpdateFunct()
+    {
+        if (kickTimer < Time.time)
+        {
+            kickTimer = Time.time + kickDelay;
 
+            List<PlayerConnection> playersToKick = new List<PlayerConnection>();
+
+            foreach (PlayerConnection player in playerConnections)
+            {
+                //Check if they were marked and did not respond
+                if (player.isQuedForRemoval)
+                {
+                    if (player.currentTank != null)
+                    {
+                        Destroy(player.currentTank.gameObject);
+                    }
+                    //playerConnections.Remove(player);
+                    playersToKick.Add(player);
+                    Debug.LogWarning($"Player of name {player.Name}, ID {player.connection.RemoteUniqueIdentifier} has failed to respond to connection check. They've been kicked.");
+                }
+
+                player.isQuedForRemoval = true;
+                server.CallRPC("ConnectionCheck", player.connection);
+            }
+
+            foreach (PlayerConnection player in playersToKick)
+            {
+                playerConnections.Remove(player);
+            }
+        }
     }
 
     [System.Serializable]
@@ -122,6 +164,22 @@ public class ServerGameLogic : MonoBehaviour
             Debug.LogWarning($"Player of ID {sender.RemoteUniqueIdentifier} has attempted to connect too many times");
         }
 
+    }
+
+
+    //RPC from clients in response to connection check request
+    public void ConnectionCheckResponse(NetConnection sender)
+    {
+        PlayerConnection playerToUpdate = GetPlayer(sender);
+        if (playerToUpdate != null)
+        {
+            playerToUpdate.isQuedForRemoval = false;
+            Debug.Log($"Player of name {playerToUpdate.Name}, ID {playerToUpdate.connection.RemoteUniqueIdentifier} has responded to connection check");
+        }
+        else
+        {
+            Debug.LogError($"a connection check has been received from ID {sender.RemoteUniqueIdentifier} for a player that doesn't seem to exist. weird...");
+        }
     }
 
     public void UpdateInputs(NetConnection sender, float xPos1, float yPos1, float zPos1, float xPos2, float yPos2)

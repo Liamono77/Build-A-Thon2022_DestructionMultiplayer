@@ -1088,8 +1088,11 @@ MonoBehaviour:
   netSyncManager: {fileID: 1255756137}
   tankManager: {fileID: 1255756136}
   playerConnections: []
-  gameState: 0
+  gameState: 2
   minumumPlayersToStartGame: 1
+  kickingEnabled: 1
+  kickTimer: 0
+  kickDelay: 5
   demonstrationPlayers: []
 --- !u!114 &1255756136
 MonoBehaviour:
@@ -1416,6 +1419,7 @@ MonoBehaviour:
     moveInput: {x: 0, y: 0}
     fireTimer: 0
     fireDelay: 0
+    isQuedForRemoval: 0
   testTank: {fileID: 0}
 --- !u!4 &1562755785
 Transform:
@@ -1591,7 +1595,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1797800097
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2197,7 +2201,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7332613467973132602, guid: 7bd59f1e245a2154188dcf1b8cd15c8f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7965035636408777600, guid: 7bd59f1e245a2154188dcf1b8cd15c8f, type: 3}
       propertyPath: m_RootOrder
