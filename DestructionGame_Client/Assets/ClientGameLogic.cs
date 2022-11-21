@@ -3,20 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using Lidgren.Network;
 using UnityEngine.UI;
+
+//CLIENT GAME LOGIC
+//This is where much of the logic specific to the game is located (but not all of it. This was for a buildathon)
+//WRITTEN BY LIAM SHELTON
 public class ClientGameLogic : MonoBehaviour
 {
     public static ClientGameLogic clientGameLogic;
 
-    public InputField inputFieldAdd;
-    public InputField inputFieldPort;
+    public InputField inputFieldAdd; //Ignore this
+    public InputField inputFieldPort; //Ignore this
 
+    //The UI screens
     public GameObject connectScreen;
     public GameObject connectingScreen;
     public GameObject lobbyScreen;
     public GameObject spawnScreen;
-    //public 
 
-    public NetSyncManager netSyncManager;
+
+    public NetSyncManager netSyncManager; 
 
     public DestructionClient client;
 
@@ -48,14 +53,13 @@ public class ClientGameLogic : MonoBehaviour
         clientGameLogic = this;
     }
 
-    public void RespawnButton()
+    public void RespawnButton()//The button that triggers this method should cause the server to spawn a new tank for this client
     {
         client.CallRPC("SpawnRequest");
     }
 
-    public void ConnectButton()
+    public void ConnectButton() //Misnomer; this actually just sends the RPC 
     {
-        // client.InitializeClientNet(inputFieldAdd.text, int.Parse(inputFieldPort.text));
         client.CallRPC("ConnectionRequest", inputFieldAdd.text);
         clientState = ClientState.connecting;
     }
@@ -77,14 +81,7 @@ public class ClientGameLogic : MonoBehaviour
         spawnScreen.SetActive(clientState == ClientState.respawning);
 
 
-        //connec
-        if (testBool)
-        {
-            testBool = false;
-            client.CallRPC("DemoMakeAPlayer", "Johnson", false, 2);
-            client.CallRPC("DemoMakeAPlayer", "Hector", true, 1);
-
-        }
+        //quick logic for monitoring tank health
         if (clientState == ClientState.playing)
         {
             if (currentTank.healthCurrent <= 0)
@@ -109,6 +106,7 @@ public class ClientGameLogic : MonoBehaviour
 
     }
 
+    //RPC from server to assign this client to a tank
     public void SetCurrentTank(NetConnection serverConnection, int networkID)
     {
         currentTank = netSyncManager.GetNetSync(networkID);
@@ -156,7 +154,7 @@ public class ClientGameLogic : MonoBehaviour
         }
     }
 
-    //RPC from server to check if client is still connected
+    //RPC from server to check if client is still connected. If this doesn't get called, the server will probably kick the client
     public void ConnectionCheck(NetConnection serverConnection)
     {
         Debug.LogWarning("Server has requested connection check. Sending response...");

@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//TANK SCRIPT
+//This is the script behind the tank objects. Rather typical character controller type stuff.
+//The tanks in this game are programatically driven this time around. No animators here.
+//WRITTEN BY LIAM SHELTON
 public class TankScript : DestructionNetSync
 {
     public PlayerConnection myConnection;

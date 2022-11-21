@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//DESTRUCTION NET SYNC
+//This is a server-oriented network synchronization script, with functionality to make instantiation/destruction of network objects automatic.
+//It would probably make sense to decouple some data from this, but whatev. I was in a hurry
+//WRITTEN BY LIAM SHELTON
 public class DestructionNetSync : MonoBehaviour
 {
     public int networkID;

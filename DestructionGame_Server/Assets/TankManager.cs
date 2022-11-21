@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Lidgren.Network;
+
+//TANK MANAGER
+//This is part of a group of scripts that handles the spawning & assigning of tanks. 
+//WRITTEN BY LIAM SHELTON
 public class TankManager : MonoBehaviour
 {
     public GameObject tankPrefab;

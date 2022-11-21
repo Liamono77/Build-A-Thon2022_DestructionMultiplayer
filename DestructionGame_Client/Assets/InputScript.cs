@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//INPUT SCRIPT
+//Simple script to take in player inputs and send them to the server. 
+//Been a while since I've used the default input system lol. Figured it made sense since nobody's going to have a controller
+//WRITTEN BY LIAM SHELTON
 public class InputScript : MonoBehaviour
 {
     public Vector3 thePos;

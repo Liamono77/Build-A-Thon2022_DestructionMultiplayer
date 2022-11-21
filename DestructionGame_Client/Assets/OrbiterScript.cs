@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//ORBITER SCRIPT
+//typical spinning thingy for the camera to lerp to
+//WRITTEN BY LIAM SHELTON
 public class OrbiterScript : MonoBehaviour
 {
     public GameObject target;

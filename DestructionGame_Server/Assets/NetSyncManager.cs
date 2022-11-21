@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Lidgren.Network;
+
+//NET SYNC MANAGER
+//This is the server-side management of network synchronization. It only works one way: from server to client.
+//I mistakenly left the syncUpdateDelay at 0, causing the server to send sync updates every frame. However, it seemed to gameplay very smooth for a non-interpolated game. No issues were noticed, so I'll leave it at 0
+//This makes it so that all movement calculations, including physics simulations, are calculated server-side. ULTRA AUTHORITY
+//WRITTEN BY LIAM SHELTON
 public class NetSyncManager : MonoBehaviour
 {
     private int lastID = 1;

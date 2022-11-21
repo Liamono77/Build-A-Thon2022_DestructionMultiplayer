@@ -4,6 +4,10 @@ using UnityEngine;
 using Lidgren.Network;
 using UnityEngine.UI;
 using System;
+
+//PLAYER CONNECTION
+//This class is the representation of players that are playing the game.
+//WRITTEN BY LIAM SHELTON
 [System.Serializable]
 public class PlayerConnection
 {
@@ -32,6 +36,10 @@ public class PlayerConnection
    // }
     // public 
 }
+
+//SERVER GAME LOGIC
+//Much of the game functionality is here. Somewhat like a secondary game manager
+//WRITTEN BY LIAM SHELTON
 public class ServerGameLogic : MonoBehaviour
 {
     public DestructionServer server;
@@ -81,7 +89,7 @@ public class ServerGameLogic : MonoBehaviour
 
     }
 
-    public void StartButton()
+    public void StartButton() //this doesn't really get used if the server is built as a server
     {
         server.port = Int32.Parse(inputFieldPort.text);
         server.InitializeServerNet();
@@ -98,6 +106,7 @@ public class ServerGameLogic : MonoBehaviour
         }
     }
     
+    //This checks if any clients have shut down their games. It kicks them if they fail to respond to a connection check RPC
     public void KickUpdateFunct()
     {
         if (kickTimer < Time.time)
@@ -132,7 +141,7 @@ public class ServerGameLogic : MonoBehaviour
     }
 
     [System.Serializable]
-    public class DemonstrationPlayer
+    public class DemonstrationPlayer //obsolete
     {
         public long clientID;
         public string theName;
@@ -142,7 +151,7 @@ public class ServerGameLogic : MonoBehaviour
     }
     public List<DemonstrationPlayer> demonstrationPlayers = new List<DemonstrationPlayer>();
 
-    public DemonstrationPlayer GetDemoPByID(long ID)
+    public DemonstrationPlayer GetDemoPByID(long ID) //obsolete
     {
         foreach (DemonstrationPlayer player in demonstrationPlayers)
         {
@@ -154,6 +163,8 @@ public class ServerGameLogic : MonoBehaviour
         return null;
     }
 
+
+    //misnomer
     public void ConnectionRequest(NetConnection sender, string name)
     {
         if (GetPlayer(sender) == null)
@@ -197,6 +208,7 @@ public class ServerGameLogic : MonoBehaviour
         }
     }
 
+    //RPC from client to update their PlayerConnection with their inputs. 
     public void UpdateInputs(NetConnection sender, float xPos1, float yPos1, float zPos1, float xPos2, float yPos2)
     {
         PlayerConnection playerToUpdate = GetPlayer(sender);
@@ -207,6 +219,7 @@ public class ServerGameLogic : MonoBehaviour
         // if (player)
     }
 
+    //This is obsolete now because the game is constantly running
     public void ReadyRequest(NetConnection sender, bool theBool)
     {
         if (gameState == GameState.Lobby)
@@ -238,11 +251,11 @@ public class ServerGameLogic : MonoBehaviour
         //Put all game start functionality here
     }
 
-    public void AssignToTeam(PlayerConnection player)
+    public void AssignToTeam(PlayerConnection player)//obsolete
     {
         
     }
-    public void SpawnTank(PlayerConnection connection, Transform spawnLocation)
+    public void SpawnTank(PlayerConnection connection, Transform spawnLocation)//obsolete
     {
         TankScript newTank = GameObject.Instantiate(playerTankPrefab, spawnLocation.position, spawnLocation.rotation).GetComponent<TankScript>();
         newTank.myConnection = connection;
@@ -261,7 +274,7 @@ public class ServerGameLogic : MonoBehaviour
         return null;
     }
 
-    public void DemoMakeAPlayer(NetConnection sender, string newName, bool isbadguy, int playerClass)
+    public void DemoMakeAPlayer(NetConnection sender, string newName, bool isbadguy, int playerClass)//obsolete
     {
         if (GetDemoPByID(sender.RemoteUniqueIdentifier) != null)//(netServer.Connections.Contains(sender))
         {

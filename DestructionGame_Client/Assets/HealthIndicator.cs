@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+//HEALTH INDICATOR
+//It aint no game if there aint no health bars
+//Also has name tag functionality!
+//WRITTEN BY LIAM SHELTON
 public class HealthIndicator : MonoBehaviour
 {
     public Slider healthBarMain;

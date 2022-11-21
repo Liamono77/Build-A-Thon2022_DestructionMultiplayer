@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Lidgren.Network;
+//DESTRUCTION SERVER
+//The server-side network logic is here. 
+//WRITTEN BY LIAM SHELTON
 public class DestructionServer : DestructionNetwork
 {
     NetServer netServer;
-    public int port = 603;
+    public int port = 601;
 
 
     public bool testbool;
@@ -13,7 +16,7 @@ public class DestructionServer : DestructionNetwork
     // Start is called before the first frame update
     void Start()
     {
-        InitializeServerNet();
+        //InitializeServerNet();
     }
 
     // Update is called once per frame

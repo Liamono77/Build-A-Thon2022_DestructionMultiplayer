@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Lidgren.Network;
 using System.Reflection;
-
+//DESTRUCTION NETWORK
+//This my custom implementation of Lidgren. Takes inspiration from the UC Network framework we've been using in class, but made to be much simpler and focused on RPC use.
+//WRITTEN BY LIAM SHELTON 
 public abstract class DestructionNetwork : MonoBehaviour
 {
     public NetPeerConfiguration netConfiguration;
@@ -41,6 +43,7 @@ public abstract class DestructionNetwork : MonoBehaviour
         }
     }
 
+    //The glorious Read/Write RPC Parameters functions. What more must be said?
     public object[] ReadRPCParameters(NetIncomingMessage message)
     {
  //       Debug.Log($"Attempting to read RPC parameters...");

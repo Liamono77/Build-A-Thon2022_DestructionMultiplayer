@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//TEAM MANAGER
+//This is a script to handle the affairs of a specific team/faction. It currently assumes there will be two, team 0 and team 1.
+//WRITTEN BY LIAM SHELTON
 public class TeamManager : MonoBehaviour
 {
     public List<Transform> spawnLocations = new List<Transform>();
@@ -21,6 +23,8 @@ public class TeamManager : MonoBehaviour
     {
         
     }
+
+    //Yes, theres a risk that two players will spawn on top of each other and get sent flying, but whatev.
     public Transform randomSpawnPoint()
     {
         int randomInt = Random.Range(0, spawnLocations.Count);

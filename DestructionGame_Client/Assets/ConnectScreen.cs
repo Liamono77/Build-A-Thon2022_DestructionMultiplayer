@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//CONNECT SCREEN
+//This is a quickly set up screen to allow clients to specify an address and port.
+//Might come in handy if I cant figure out port forwarding in time for the closing ceremony
+//WRITTEN BY LIAM SHELTON
+
 public class ConnectScreen : MonoBehaviour
 {
     public DestructionClient client;

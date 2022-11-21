@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//DESTRUCTION NET SYNC (CLIENT)
+//This is the client version of my custom NetSync system. 
+//Some aspects don't make much sense (projectiles have health?), but whatev. It workz
+//WRITTEN BY LIAM SHELTON
 public class DestructionNetSyncClient : MonoBehaviour
 {
     public int networkID;
@@ -37,6 +40,7 @@ public class DestructionNetSyncClient : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
+        //After some experimentation, I feel its best to just set transforms directly to the latest. I'll figure out smoothing later. 60hz sync updates to compensate
         if (objectType == ObjectType.tank || objectType == ObjectType.projectile)
         {
             // transform.position = Vector3.Lerp(transform.position, latestPosition, Time.deltaTime * lerpFactor);

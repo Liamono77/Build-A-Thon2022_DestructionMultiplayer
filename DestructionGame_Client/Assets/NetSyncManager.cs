@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Lidgren.Network;
-
+//NET SYNC MANAGER
+//This is where the bulk of client-side network sychronization occurs. It's full of functions for synchronizing network objects.
+//WRITTEN BY LAIM SHELTON
 public class NetSyncManager : MonoBehaviour
 {
     public List<DestructionNetSyncClient> netSyncs = new List<DestructionNetSyncClient>();
@@ -41,6 +43,7 @@ public class NetSyncManager : MonoBehaviour
         netSyncs.Add(newSync);
     }
 
+    //RPC to synchronize tank transforms
     public void SyncUpdateTank(NetConnection server, int networkID, float xPos, float yPos, float zPos, float wRot, float xRot, float yRot, float zRot, float TwRot, float TxRot, float TyRot, float TzRot)
     {
         DestructionNetSyncClient tankToUpdate = GetNetSync(networkID);
@@ -54,6 +57,8 @@ public class NetSyncManager : MonoBehaviour
         }
 
     }
+
+    //RPC to synch pew pew lazors
     public void SyncUpdateProjectile(NetConnection server, int networkID, float xPos, float yPos, float zPos)
     {
         DestructionNetSyncClient projectileToUpdate = GetNetSync(networkID);
@@ -63,6 +68,7 @@ public class NetSyncManager : MonoBehaviour
         }
     }
 
+    //RPC to update healths
     public void UpdateHealth(NetConnection server, int networkID, float newHealth, int sourceNetworkID)
     {
         DestructionNetSyncClient netSyncToUpdate = GetNetSync(networkID);
@@ -83,6 +89,7 @@ public class NetSyncManager : MonoBehaviour
         //GetNetSync(networkID).healthCurrent = newHealth;
     }
 
+    //RPC to set a tank's name. It renames the object entirely!
     public void SetTankName(NetConnection server, int networkID, string newName)
     {
         Debug.LogWarning($"Attempting to rename tank of ID {networkID} to name {newName}..");
@@ -99,6 +106,8 @@ public class NetSyncManager : MonoBehaviour
             //Invoke("SetTankName", 1f, )
         }
     }
+
+    //RPC that destroys networked objects
     public void DestroyNetObject(NetConnection server, int networkID)
     {
         DestructionNetSyncClient netSync = GetNetSync(networkID);

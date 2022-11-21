@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Lidgren.Network;
-
+//DESTRUCTION CLIENT
+//This is where the client-specific network stuff is
+//WRITTEN BY LIAM SHELTON
 public class DestructionClient : DestructionNetwork
 {
     NetClient netClient;
@@ -40,6 +42,8 @@ public class DestructionClient : DestructionNetwork
 
         netClient = netPeerKinda as NetClient;
     }
+
+    //The glorious CallRPC functions. What more could a person want?
     public void CallRPC(string theMessage, params object[] parameters)
     {
         CallRPC(theMessage, NetDeliveryMethod.ReliableOrdered, parameters);

@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//ignore this
 public class ProjectileScriptClient : DestructionNetSyncClient
 {
     // Start is called before the first frame update

@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//CAMERA SCRIPT
+//Typical camera script with spinny orbit functionality. Simple and fun.
+//WRITTEN BY LIAM SHELTON
 public class CameraScript : MonoBehaviour
 {
     public GameObject lookTarget;

@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//TANK DRIVE TEST
+//This is a prototyping space for the tank control scheme. Good for testing wheel colliders. no longer used but could be useful in the future
+//WRITTEN BY LIAM SHELTON
 public class tankdriveTest : MonoBehaviour
 {
     public List<WheelCollider> leftWheels = new List<WheelCollider>();
