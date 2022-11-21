@@ -10,6 +10,8 @@ public class TankScript : DestructionNetSync
 
     public Transform myTurret;
 
+    public float turretLerpFactor = 1f;
+
     public Vector2 targetVector;
 
 
@@ -39,7 +41,7 @@ public class TankScript : DestructionNetSync
     {
         base.Update();
         //RotateTowardsInput();
-        //FaceCursor();
+        FaceCursor();
         //rigidBody.AddForce()
         DriveFunct();
     }
@@ -78,9 +80,40 @@ public class TankScript : DestructionNetSync
 
     public void FaceCursor()
     {
-        Vector3 lookDir = myConnection.cursorPosition - gameObject.transform.position;
-        float angle = Mathf.Atan2(lookDir.x, lookDir.y) * Mathf.Rad2Deg;
-        Quaternion theQuat = Quaternion.Euler(0, 0, -angle);
-        myTurret.rotation = theQuat;
+//        Vector3 lookDir = myConnection.cursorPosition - gameObject.transform.position;
+//         float angle = Mathf.Atan2(lookDir.x, lookDir.z) * Mathf.Rad2Deg;
+//        Quaternion theQuat = Quaternion.Euler(0, angle, 0);
+
+
+      //  myTurret.localRotation = theQuat;
+        // myTurret.localRotation = Quaternion.Lerp(myTurret.localRotation, theQuat, Time.deltaTime * turretLerpFactor);
+        // myTurret.rotation = theQuat;
+        // Vector3 euler = myTurret.rotation.eulerAngles;
+        //  euler.x = 0;
+        // euler.z = 0;
+
+        // myTurret.rotation = Quaternion.Euler(euler);
+        //   Quaternion rot = myTurret.rotation;
+        //   rot.y = 0;
+        //   rot.x = 0;
+        //   myTurret.rotation = rot;
+
+        //Quaternion rot = myTurret.rotation;
+        //myTurret.LookAt(myConnection.cursorPosition);
+        //myTurret.R
+        //Quaternion.lo
+
+        Vector3 lookDir = myConnection.cursorPosition - myTurret.position;
+        lookDir.y = turretLerpFactor;
+
+
+        myTurret.rotation = Quaternion.LookRotation(lookDir);
+
+        Vector3 vectlol = myTurret.localRotation.eulerAngles;
+        vectlol.y = 0;
+        vectlol.x = vectlol.x * -1;
+        vectlol.z = vectlol.z * -1;
+        //Debug.Log($"attempting to rotate by {vectlol}");
+        myTurret.Rotate(vectlol);
     }
 }

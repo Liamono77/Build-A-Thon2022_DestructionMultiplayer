@@ -9,7 +9,16 @@ public class DestructionNetSync : MonoBehaviour
     public float healthCurrent = 50f;
     public float healthMax = 50f;
 
-    public bool isStationary;
+    //public bool isStationary;
+
+    public NetSyncType netSyncType;
+    public enum NetSyncType
+    {
+        tank,
+        building,
+        projectile,
+    }
+
     bool isDestroyed;
 
     public NetSyncManager manager;

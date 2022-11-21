@@ -31,7 +31,7 @@ public class NetSyncManager : MonoBehaviour
     {
         foreach (DestructionNetSync netSync in netSyncs)
         {
-            if (netSync.isStationary == false)
+            if (netSync.netSyncType == DestructionNetSync.NetSyncType.tank)
             {
                 //float xPos = netSync.
                 //ServerGameLogic.serverGameLogic.server.CallRPC("SyncUpdateTank", NetDeliveryMethod.UnreliableSequenced, netSync.networkID, );

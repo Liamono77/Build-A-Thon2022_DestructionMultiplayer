@@ -143,6 +143,8 @@ public class ServerGameLogic : MonoBehaviour
         }
     }
 
+
+
     public void StartGame()
     {
         server.CallRPC("StartGame");

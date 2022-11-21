@@ -1755,7 +1755,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   address: 127.0.0.1
-  port: 603
+  port: 604
 --- !u!114 &655111599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1778,7 +1778,7 @@ MonoBehaviour:
   client: {fileID: 655111598}
   testBool: 0
   clientState: 0
-  teamID: 0
+  teamID: 10
   currentTank: {fileID: 0}
 --- !u!114 &655111600
 MonoBehaviour:
@@ -1793,6 +1793,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   netSyncs: []
+  netIDsMissing: 
 --- !u!114 &655111601
 MonoBehaviour:
   m_ObjectHideFlags: 0
