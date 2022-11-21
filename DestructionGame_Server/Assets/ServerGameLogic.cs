@@ -14,6 +14,18 @@ public class PlayerConnection
 
     public Vector3 cursorPosition;
     public Vector2 moveInput;
+
+    public float fireTimer;
+    public float fireDelay;
+
+  //  public void AttemptToFire()
+  //  {
+       // if (fireTimer < Time.time)
+        //{
+            //GameObject.Instantiate'
+
+        //}
+   // }
     // public 
 }
 public class ServerGameLogic : MonoBehaviour

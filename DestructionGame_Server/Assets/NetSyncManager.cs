@@ -122,6 +122,21 @@ public class NetSyncManager : MonoBehaviour
 
     }
 
+    //RPC to make a tank fire!
+    public void RequestFire(NetConnection sender)
+    {
+        PlayerConnection requestingPlayer = ServerGameLogic.serverGameLogic.GetPlayer(sender);
+        if (requestingPlayer != null)
+        {
+            if (requestingPlayer.currentTank != null)
+            {
+                requestingPlayer.currentTank.AttemptToFire();
+            }
+        }
+
+
+    }
+
     public void SendNetworkObject(DestructionNetSync netSync, NetConnection recipient) //This is the one 
     {
         ServerGameLogic.serverGameLogic.server.CallRPC("InstantiateNetObject", recipient, GetPrefabName(netSync), netSync.networkID, netSync.transform.position.x, netSync.transform.position.y, netSync.transform.position.z, netSync.transform.rotation.w, netSync.transform.rotation.x, netSync.transform.rotation.y, netSync.transform.rotation.z);

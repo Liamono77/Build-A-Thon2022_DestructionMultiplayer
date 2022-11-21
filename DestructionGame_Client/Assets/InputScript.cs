@@ -26,6 +26,7 @@ public class InputScript : MonoBehaviour
             inputUpdateTimer = Time.time + inputUpdateDelay;
             SendInputsToServer();
         }
+        GetFireButton();
     }
 
     public void convertMouseToLook()
@@ -34,12 +35,21 @@ public class InputScript : MonoBehaviour
         {
             thePos = hit.point;
         }
+        indicator.SetActive(ClientGameLogic.clientGameLogic.clientState == ClientGameLogic.ClientState.playing);
         indicator.transform.position = thePos;
     }
     public void GetWASD()
     {
         moveVector.x = Input.GetAxis("Horizontal");
         moveVector.y = Input.GetAxis("Vertical");
+    }
+
+    public void GetFireButton()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            ClientGameLogic.clientGameLogic.client.CallRPC("RequestFire");
+        }
     }
 
     public void SendInputsToServer()

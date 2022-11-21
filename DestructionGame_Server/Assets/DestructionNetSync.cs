@@ -17,6 +17,7 @@ public class DestructionNetSync : MonoBehaviour
         tank,
         building,
         projectile,
+        explosionFX,
     }
 
     bool isDestroyed;

@@ -91,7 +91,20 @@ public class NetSyncManager : MonoBehaviour
             //Invoke("SetTankName", 1f, )
         }
     }
-
+    public void DestroyNetObject(NetConnection server, int networkID)
+    {
+        DestructionNetSyncClient netSync = GetNetSync(networkID);
+        if (netSync != null)
+        {
+            Debug.Log($"Client was ordered to destroy net sync of ID {networkID}");
+            netSyncs.Remove(netSync);
+            Destroy(netSync.gameObject);
+        }
+        else
+        {
+            Debug.LogError($"Client was ordered to destroy net sync of ID {networkID}, but no net syncs of that ID were found");
+        }
+    }
     public DestructionNetSyncClient GetNetSync(int ID)
     {
         foreach (DestructionNetSyncClient netSync in netSyncs)

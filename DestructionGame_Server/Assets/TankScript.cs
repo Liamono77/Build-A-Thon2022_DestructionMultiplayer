@@ -25,6 +25,13 @@ public class TankScript : DestructionNetSync
     public float breakTorque = 0f;
 
 
+    public float attackTimer;
+    public float attackDelay = 1f;
+
+    public Transform barrelEnd;
+
+    public GameObject projectilePrefab;
+    public GameObject muzzleFlashFX;
 
 
     // Start is called before the first frame update
@@ -120,5 +127,16 @@ public class TankScript : DestructionNetSync
         vectlol.z = vectlol.z * -1;
         //Debug.Log($"attempting to rotate by {vectlol}");
         myTurret.Rotate(vectlol);
+    }
+
+    public void AttemptToFire()
+    {
+        if (attackTimer < Time.time)
+        {
+            attackTimer = Time.time + attackDelay;
+            Debug.Log($"Tank with player of name{myConnection.Name} has fired");
+
+            GameObject.Instantiate(muzzleFlashFX, barrelEnd.position, barrelEnd.rotation);
+        }
     }
 }

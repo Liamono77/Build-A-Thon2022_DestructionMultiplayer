@@ -21,7 +21,8 @@ public class DestructionNetSyncClient : MonoBehaviour
     {
         stationary,
         tank,
-        projectile
+        projectile,
+        effect,
     }
 
     // Start is called before the first frame update
