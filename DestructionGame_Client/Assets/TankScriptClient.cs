@@ -10,6 +10,8 @@ public class TankScriptClient : DestructionNetSyncClient
     protected override void Start()
     {
         base.Start();
+        ClientGameLogic.clientGameLogic.client.CallRPC("RequestRename", networkID);
+        Debug.Log($"Sent rename request to server for tank with network ID {networkID}");
     }
 
     // Update is called once per frame

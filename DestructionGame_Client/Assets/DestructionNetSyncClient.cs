@@ -11,6 +11,11 @@ public class DestructionNetSyncClient : MonoBehaviour
 
     public float lerpFactor = 2000f;
 
+    public float healthCurrent = 50f;
+    public float healthMax = 50f;
+
+    public GameObject healthUIPrefab;
+
     public ObjectType objectType;
     public enum ObjectType
     {
@@ -22,7 +27,10 @@ public class DestructionNetSyncClient : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        
+        if (objectType != ObjectType.projectile)
+        {
+
+        }
     }
 
     // Update is called once per frame

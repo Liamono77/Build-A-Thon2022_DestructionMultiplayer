@@ -34,6 +34,7 @@ public class TankScript : DestructionNetSync
         rigidBody = GetComponent<Rigidbody>();
         //This is extremely hacky but seems to be the only way to get this working.
         ServerGameLogic.serverGameLogic.server.CallRPC("SetCurrentTank", myConnection.connection, networkID);
+        //ServerGameLogic.serverGameLogic.server.CallRPC("SetTankName", networkID, myConnection.Name);
     }
 
     // Update is called once per frame

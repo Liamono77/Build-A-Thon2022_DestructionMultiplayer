@@ -42,7 +42,7 @@ public class DestructionNetSync : MonoBehaviour
         }
     }
 
-    public virtual void TakeDamage(float amount)
+    public virtual void TakeDamage(float amount, int sourceNetworkID)
     {
         float newHealth = healthCurrent - amount;
 
@@ -54,7 +54,7 @@ public class DestructionNetSync : MonoBehaviour
 
         healthCurrent = newHealth;
         //ServerGameLogic.serverGameLogic.server.CallRPC("")
-        manager.UpdateSyncObjectHealth(this);
+        manager.UpdateSyncObjectHealth(this, sourceNetworkID);
         
     }
     public virtual void DeathFunction()

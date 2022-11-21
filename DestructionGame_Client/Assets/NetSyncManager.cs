@@ -55,6 +55,43 @@ public class NetSyncManager : MonoBehaviour
 
     }
 
+    public void UpdateHealth(NetConnection server, int networkID, float newHealth, int sourceNetworkID)
+    {
+        DestructionNetSyncClient netSyncToUpdate = GetNetSync(networkID);
+        if (netSyncToUpdate != null)
+        {
+            float previousHealth = netSyncToUpdate.healthCurrent;
+
+            if (Mathf.Abs(previousHealth - newHealth)  > 0)
+            {
+                Debug.Log($"Netsync object {netSyncToUpdate.gameObject.name} of ID {netSyncToUpdate.networkID} took {previousHealth - newHealth} points of damage from source of ID{sourceNetworkID}");
+                //Callbacks for damage?
+            }
+            netSyncToUpdate.healthCurrent = newHealth;
+
+        }
+      //  float previousHealth = 
+     //   Debug.Log("")
+        //GetNetSync(networkID).healthCurrent = newHealth;
+    }
+
+    public void SetTankName(NetConnection server, int networkID, string newName)
+    {
+        Debug.LogWarning($"Attempting to rename tank of ID {networkID} to name {newName}..");
+        DestructionNetSyncClient netSyncToRename = GetNetSync(networkID);
+        if (netSyncToRename != null)
+        {
+            netSyncToRename.gameObject.name = newName;
+            Debug.LogWarning($"Successfully renamed object of network ID {networkID} to name {newName}..");
+
+        }
+        else
+        {
+            Debug.LogError($"Failed to rename an object of ID {networkID} that was supposed to be renamed to {newName}. Will attempt again in a few seconds...");
+            //Invoke("SetTankName", 1f, )
+        }
+    }
+
     public DestructionNetSyncClient GetNetSync(int ID)
     {
         foreach (DestructionNetSyncClient netSync in netSyncs)

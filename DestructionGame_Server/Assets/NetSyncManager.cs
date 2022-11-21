@@ -63,9 +63,9 @@ public class NetSyncManager : MonoBehaviour
         netSyncs.Remove(netSync);
 
     }
-    public void UpdateSyncObjectHealth(DestructionNetSync netSync)
+    public void UpdateSyncObjectHealth(DestructionNetSync netSync, int sourceNetworkID)
     {
-        ServerGameLogic.serverGameLogic.server.CallRPC("UpdateHealth", netSync.networkID, netSync.healthCurrent);
+        ServerGameLogic.serverGameLogic.server.CallRPC("UpdateHealth", netSync.networkID, netSync.healthCurrent, sourceNetworkID);
 
     }
 
@@ -90,6 +90,36 @@ public class NetSyncManager : MonoBehaviour
                 SendNetworkObject(netSync, sender);
             }
         }
+    }
+
+    //RPC to set a tank name
+    public void RequestRename(NetConnection sender, int networkID)
+    {
+        //ServerGameLogic.serverGameLogic.GetPlayer(sender).Name
+        // PlayerConnection thePlayer
+        string theName = null;
+       foreach (DestructionNetSync netSync in netSyncs)
+        {
+            if (netSync.networkID == networkID)
+            {
+                if (netSync.netSyncType == DestructionNetSync.NetSyncType.tank)
+                {
+                    TankScript theTank = netSync as TankScript;
+                    theName = theTank.myConnection.Name;
+                }
+            }
+        }
+       if (theName != null)
+        {
+            Debug.LogWarning($"Attempting to send rename response to client of ID{sender.RemoteUniqueIdentifier} for object of ID{networkID}");
+            ServerGameLogic.serverGameLogic.server.CallRPC("SetTankName", sender, networkID, theName);
+        }
+        else
+        {
+            Debug.LogError($"Attempt to find a player connection associated with network ID {networkID} has failed. Sending error response...");
+            ServerGameLogic.serverGameLogic.server.CallRPC("RemoteDebugLog", sender, $"The server was unable to find a player for network ID {networkID}", 2);
+        }
+
     }
 
     public void SendNetworkObject(DestructionNetSync netSync, NetConnection recipient) //This is the one 
