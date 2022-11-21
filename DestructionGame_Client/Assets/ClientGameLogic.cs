@@ -63,6 +63,10 @@ public class ClientGameLogic : MonoBehaviour
     {
         client.CallRPC("ReadyRequest", theTog.isOn);
     }
+    public void QuitButton()
+    {
+        Application.Quit();
+    }
 
     // Update is called once per frame
     void Update()
@@ -81,7 +85,20 @@ public class ClientGameLogic : MonoBehaviour
             client.CallRPC("DemoMakeAPlayer", "Hector", true, 1);
 
         }
-
+        if (clientState == ClientState.playing)
+        {
+            if (currentTank.healthCurrent <= 0)
+            {
+                clientState = ClientState.dying;
+            }
+        }
+        if (clientState == ClientState.dying)
+        {
+            if (currentTank == null)
+            {
+                clientState = ClientState.respawning;
+            }
+        }
 
     }
 

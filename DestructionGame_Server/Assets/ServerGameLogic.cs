@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Lidgren.Network;
+using UnityEngine.UI;
+using System;
 [System.Serializable]
 public class PlayerConnection
 {
@@ -63,6 +65,11 @@ public class ServerGameLogic : MonoBehaviour
     public float kickTimer;
     public float kickDelay = 5f;
 
+    //public InputField inputFieldAdd;
+    public InputField inputFieldPort;
+    public GameObject startScreen;
+
+
     private void Awake()
     {
         serverGameLogic = this;
@@ -72,6 +79,14 @@ public class ServerGameLogic : MonoBehaviour
     void Start()
     {
 
+    }
+
+    public void StartButton()
+    {
+        server.port = Int32.Parse(inputFieldPort.text);
+        server.InitializeServerNet();
+        startScreen.SetActive(false);
+        //Camera.main.gameObject.SetActive(false);
     }
 
     // Update is called once per frame

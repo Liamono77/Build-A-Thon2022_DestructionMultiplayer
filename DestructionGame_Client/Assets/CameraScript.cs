@@ -53,7 +53,7 @@ public class CameraScript : MonoBehaviour
     {
     //    if (ClientGameLogic.clientGameLogic.currentTank != null)
      //   {
-            lookTarget = orbiter.gameObject;
+            lookTarget = orbiter.looktargetAlternative;
             transform.position = Vector3.Lerp(transform.position, orbiter.orbitPoint.transform.position, Time.deltaTime * orbitLerpFactor);
             lookLerpTarget.transform.position = Vector3.Lerp(lookLerpTarget.transform.position, lookTarget.transform.position, Time.deltaTime * lookLerpFactor);
             transform.LookAt(lookLerpTarget);

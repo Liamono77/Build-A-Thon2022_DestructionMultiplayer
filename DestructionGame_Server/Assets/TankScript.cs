@@ -28,10 +28,14 @@ public class TankScript : DestructionNetSync
     public float attackTimer;
     public float attackDelay = .25f;
 
+    public bool Dead;
+    public float deathModeDuration = 2f;
+
     public Transform barrelEnd;
 
     public GameObject projectilePrefab;
     public GameObject muzzleFlashFX;
+    public GameObject deathExplosionPrefab;
 
 
     // Start is called before the first frame update
@@ -48,10 +52,18 @@ public class TankScript : DestructionNetSync
     protected override void Update()
     {
         base.Update();
-        //RotateTowardsInput();
-        FaceCursor();
-        //rigidBody.AddForce()
-        DriveFunct();
+
+        if (healthCurrent > 0)
+        {
+            FaceCursor();
+            DriveFunct();
+        }
+        else if (Dead == false)
+        {
+            Dead = true;
+            Destroy(gameObject, deathModeDuration);
+            GameObject.Instantiate(deathExplosionPrefab, transform.position, transform.rotation);
+        }
     }
     public void RotateTowardsInput()
     {
@@ -88,56 +100,36 @@ public class TankScript : DestructionNetSync
 
     public void FaceCursor()
     {
-//        Vector3 lookDir = myConnection.cursorPosition - gameObject.transform.position;
-//         float angle = Mathf.Atan2(lookDir.x, lookDir.z) * Mathf.Rad2Deg;
-//        Quaternion theQuat = Quaternion.Euler(0, angle, 0);
-
-
-      //  myTurret.localRotation = theQuat;
-        // myTurret.localRotation = Quaternion.Lerp(myTurret.localRotation, theQuat, Time.deltaTime * turretLerpFactor);
-        // myTurret.rotation = theQuat;
-        // Vector3 euler = myTurret.rotation.eulerAngles;
-        //  euler.x = 0;
-        // euler.z = 0;
-
-        // myTurret.rotation = Quaternion.Euler(euler);
-        //   Quaternion rot = myTurret.rotation;
-        //   rot.y = 0;
-        //   rot.x = 0;
-        //   myTurret.rotation = rot;
-
-        //Quaternion rot = myTurret.rotation;
-        //myTurret.LookAt(myConnection.cursorPosition);
-        //myTurret.R
-        //Quaternion.lo
-
         Vector3 lookDir = myConnection.cursorPosition - myTurret.position;
-        //lookDir.y = turretLerpFactor;
         lookDir.y = 0;
-
-
-        //myTurret.rotation = Quaternion.LookRotation(lookDir);
-        //myTurret.rotation = Quaternion.Lerp(myTurret.rotation, Quaternion.LookRotation(lookDir), Time.deltaTime * turretLerpFactor);//Quaternion.LookRotation(lookDir);
-        myTurret.rotation = Quaternion.RotateTowards(myTurret.rotation, Quaternion.LookRotation(lookDir), Time.deltaTime * turretLerpFactor);//Quaternion.LookRotation(lookDir);
+        myTurret.rotation = Quaternion.RotateTowards(myTurret.rotation, Quaternion.LookRotation(lookDir), Time.deltaTime * turretLerpFactor);
 
 
         Vector3 vectlol = myTurret.localRotation.eulerAngles;
         vectlol.y = 0;
         vectlol.x = vectlol.x * -1;
-        vectlol.z = vectlol.z * -1;
-        //Debug.Log($"attempting to rotate by {vectlol}");
+        vectlol.z = vectlol.z * -1;;
         myTurret.Rotate(vectlol);
     }
 
     public void AttemptToFire()
     {
-        if (attackTimer < Time.time)
+        if (healthCurrent > 0)
         {
-            attackTimer = Time.time + attackDelay;
-            Debug.Log($"Tank with player of name{myConnection.Name} has fired");
+            if (attackTimer < Time.time)
+            {
+                attackTimer = Time.time + attackDelay;
+                Debug.Log($"Tank with player of name{myConnection.Name} has fired");
 
-            GameObject.Instantiate(muzzleFlashFX, barrelEnd.position, barrelEnd.rotation);
-            GameObject.Instantiate(projectilePrefab, barrelEnd.position, barrelEnd.rotation);
+                GameObject.Instantiate(muzzleFlashFX, barrelEnd.position, barrelEnd.rotation);
+                GameObject.Instantiate(projectilePrefab, barrelEnd.position, barrelEnd.rotation);
+            }
         }
+
+    }
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        GameObject.Instantiate(deathExplosionPrefab, transform.position, transform.rotation);
     }
 }

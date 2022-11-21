@@ -282,6 +282,7 @@ MonoBehaviour:
     moveInput: {x: 0, y: 0}
     fireTimer: 0
     fireDelay: 0
+    isQuedForRemoval: 0
   rigidBody: {fileID: 5265423772617111354}
   myTurret: {fileID: 5070992231900967814}
   turretLerpFactor: 125
@@ -299,9 +300,12 @@ MonoBehaviour:
   breakTorque: 0
   attackTimer: 0
   attackDelay: 1
+  Dead: 0
+  deathModeDuration: 2
   barrelEnd: {fileID: 3359924408470277561}
   projectilePrefab: {fileID: 1420763656681131117, guid: 86d5c89b0c115224a8eaee375f8f34bd, type: 3}
   muzzleFlashFX: {fileID: 4662420483119852701, guid: aef5c564802a1594fbda5a953fb6d232, type: 3}
+  deathExplosionPrefab: {fileID: 1948680333660731488, guid: 2b744e55356fee145ad7b63691bbe8a1, type: 3}
 --- !u!1 &2691621626424950463
 GameObject:
   m_ObjectHideFlags: 0

@@ -62,7 +62,7 @@ public class DestructionNetSync : MonoBehaviour
     {
 
     }
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
         //ServerGameLogic.serverGameLogic.netSyncManager.netSyncs.Remove(this);
         manager.RemoveNetSyncObject(this);

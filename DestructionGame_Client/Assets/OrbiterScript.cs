@@ -6,6 +6,7 @@ public class OrbiterScript : MonoBehaviour
 {
     public GameObject target;
     public GameObject orbitPoint;
+    public GameObject looktargetAlternative;
     public GameObject teamPoint0;
     public GameObject teamPoint1;
 
