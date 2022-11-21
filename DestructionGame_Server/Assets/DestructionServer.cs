@@ -13,7 +13,7 @@ public class DestructionServer : DestructionNetwork
     // Start is called before the first frame update
     void Start()
     {
-        //InitializeServerNet();
+        InitializeServerNet();
     }
 
     // Update is called once per frame

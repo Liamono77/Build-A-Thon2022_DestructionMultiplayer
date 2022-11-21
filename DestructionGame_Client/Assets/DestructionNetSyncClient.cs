@@ -39,11 +39,13 @@ public class DestructionNetSyncClient : MonoBehaviour
     {
         if (objectType == ObjectType.tank || objectType == ObjectType.projectile)
         {
-           // transform.position = Vector3.Lerp(transform.position, latestPosition, Time.deltaTime * lerpFactor);
-          //  transform.rotation = Quaternion.Lerp(transform.rotation, latestRotation, Time.deltaTime * lerpFactor);
+            // transform.position = Vector3.Lerp(transform.position, latestPosition, Time.deltaTime * lerpFactor);
+            //  transform.rotation = Quaternion.Lerp(transform.rotation, latestRotation, Time.deltaTime * lerpFactor);
 
-            transform.position = Vector3.MoveTowards(transform.position, latestPosition, Time.deltaTime * lerpFactor);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, latestRotation, Time.deltaTime * lerpFactor);
+            //transform.position = Vector3.MoveTowards(transform.position, latestPosition, Time.deltaTime * lerpFactor);
+            transform.position = latestPosition;
+            //transform.rotation = Quaternion.RotateTowards(transform.rotation, latestRotation, Time.deltaTime * lerpFactor);
+            transform.rotation = latestRotation;
         }
     }
 }
