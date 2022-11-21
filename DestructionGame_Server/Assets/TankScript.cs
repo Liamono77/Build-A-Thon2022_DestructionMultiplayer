@@ -104,10 +104,14 @@ public class TankScript : DestructionNetSync
         //Quaternion.lo
 
         Vector3 lookDir = myConnection.cursorPosition - myTurret.position;
-        lookDir.y = turretLerpFactor;
+        //lookDir.y = turretLerpFactor;
+        lookDir.y = 0;
 
 
-        myTurret.rotation = Quaternion.LookRotation(lookDir);
+        //myTurret.rotation = Quaternion.LookRotation(lookDir);
+        //myTurret.rotation = Quaternion.Lerp(myTurret.rotation, Quaternion.LookRotation(lookDir), Time.deltaTime * turretLerpFactor);//Quaternion.LookRotation(lookDir);
+        myTurret.rotation = Quaternion.RotateTowards(myTurret.rotation, Quaternion.LookRotation(lookDir), Time.deltaTime * turretLerpFactor);//Quaternion.LookRotation(lookDir);
+
 
         Vector3 vectlol = myTurret.localRotation.eulerAngles;
         vectlol.y = 0;

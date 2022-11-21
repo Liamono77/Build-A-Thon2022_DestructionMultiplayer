@@ -37,7 +37,7 @@ public class NetSyncManager : MonoBehaviour
                 //ServerGameLogic.serverGameLogic.server.CallRPC("SyncUpdateTank", NetDeliveryMethod.UnreliableSequenced, netSync.networkID, );
                 //TankScript tankToUpdate = netSync.gameObject.GetComponent<TankScript>();
                 TankScript tankToUpdate = netSync as TankScript;
-                ServerGameLogic.serverGameLogic.server.CallRPC("SyncUpdateTank", NetDeliveryMethod.UnreliableSequenced, tankToUpdate.networkID, tankToUpdate.transform.position.x, tankToUpdate.transform.position.y, tankToUpdate.transform.position.z, tankToUpdate.transform.rotation.w, tankToUpdate.transform.rotation.x, tankToUpdate.transform.rotation.y, tankToUpdate.transform.rotation.z);
+                ServerGameLogic.serverGameLogic.server.CallRPC("SyncUpdateTank", NetDeliveryMethod.UnreliableSequenced, tankToUpdate.networkID, tankToUpdate.transform.position.x, tankToUpdate.transform.position.y, tankToUpdate.transform.position.z, tankToUpdate.transform.rotation.w, tankToUpdate.transform.rotation.x, tankToUpdate.transform.rotation.y, tankToUpdate.transform.rotation.z, tankToUpdate.myTurret.rotation.w, tankToUpdate.myTurret.rotation.x, tankToUpdate.myTurret.rotation.y, tankToUpdate.myTurret.rotation.z);
             }
         }
     }

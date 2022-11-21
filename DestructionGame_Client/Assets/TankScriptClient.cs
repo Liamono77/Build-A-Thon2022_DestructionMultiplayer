@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TankScriptClient : DestructionNetSyncClient
 {
+    public Transform myTurret;
+    public Quaternion latestTurretRotation;
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -14,5 +16,6 @@ public class TankScriptClient : DestructionNetSyncClient
     protected override void Update()
     {
         base.Update();
+        myTurret.rotation = Quaternion.RotateTowards(myTurret.rotation, latestTurretRotation, Time.deltaTime * lerpFactor);
     }
 }

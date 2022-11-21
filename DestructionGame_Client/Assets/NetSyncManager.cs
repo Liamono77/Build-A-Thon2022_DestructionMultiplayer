@@ -41,13 +41,16 @@ public class NetSyncManager : MonoBehaviour
         netSyncs.Add(newSync);
     }
 
-    public void SyncUpdateTank(NetConnection server, int networkID, float xPos, float yPos, float zPos, float wRot, float xRot, float yRot, float zRot)
+    public void SyncUpdateTank(NetConnection server, int networkID, float xPos, float yPos, float zPos, float wRot, float xRot, float yRot, float zRot, float TwRot, float TxRot, float TyRot, float TzRot)
     {
         DestructionNetSyncClient tankToUpdate = GetNetSync(networkID);
         if (tankToUpdate != null)
         {
             tankToUpdate.latestPosition = new Vector3(xPos, yPos, zPos);
             tankToUpdate.latestRotation = new Quaternion(xRot, yRot, zRot, wRot);
+
+            TankScriptClient tankReal = tankToUpdate as TankScriptClient;
+            tankReal.latestTurretRotation = new Quaternion(TxRot, TyRot, TzRot, TwRot);
         }
 
     }

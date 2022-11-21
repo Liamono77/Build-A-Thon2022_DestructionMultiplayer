@@ -271,7 +271,7 @@ MonoBehaviour:
   originalPrefab: {fileID: 2643333991718642088}
   healthCurrent: 50
   healthMax: 50
-  isStationary: 0
+  netSyncType: 0
   manager: {fileID: 0}
   myConnection:
     Name: 
@@ -282,6 +282,7 @@ MonoBehaviour:
     moveInput: {x: 0, y: 0}
   rigidBody: {fileID: 5265423772617111354}
   myTurret: {fileID: 5070992231900967814}
+  turretLerpFactor: 125
   targetVector: {x: 0, y: 0}
   leftWheels:
   - {fileID: 5190697694850063082}
