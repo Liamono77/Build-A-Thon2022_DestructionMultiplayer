@@ -26,7 +26,26 @@ public class DestructionNetSyncClient : MonoBehaviour
         tank,
         projectile,
         effect,
+        lerpedTransformPrototype,
     }
+
+    public UpdateMode updateMode = UpdateMode.original;
+    public enum UpdateMode
+    {
+        original,
+        recordedInterpolation,
+    }
+
+
+    public List<Quaternion> positionsRecord = new List<Quaternion>();
+    public float latestUpdateTime; //Server's time 
+    public float latestUpdateTravelTime;
+
+    public float expectedTime;
+    public float timeSinceLastUpdate;
+    public float timeOfLastUpdate;
+
+    public float testfloat = .5f;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -43,13 +62,51 @@ public class DestructionNetSyncClient : MonoBehaviour
         //After some experimentation, I feel its best to just set transforms directly to the latest. I'll figure out smoothing later. 60hz sync updates to compensate
         if (objectType == ObjectType.tank || objectType == ObjectType.projectile)
         {
-            // transform.position = Vector3.Lerp(transform.position, latestPosition, Time.deltaTime * lerpFactor);
-            //  transform.rotation = Quaternion.Lerp(transform.rotation, latestRotation, Time.deltaTime * lerpFactor);
+            //transform.position = latestPosition;
+            //transform.rotation = latestRotation;
 
-            //transform.position = Vector3.MoveTowards(transform.position, latestPosition, Time.deltaTime * lerpFactor);
-            transform.position = latestPosition;
-            //transform.rotation = Quaternion.RotateTowards(transform.rotation, latestRotation, Time.deltaTime * lerpFactor);
-            transform.rotation = latestRotation;
+
+
+            //timeSinceLastUpdate = Time.time - timeOfLastUpdate;
+           // expectedTime = latestUpdateTime + timeSinceLastUpdate - latestUpdateTravelTime;
+            //expectedTime = latestUpdateTime + timeSinceLastUpdate - testfloat;
+
+
+
+            //PrototypeUpdate();
+            if (updateMode == UpdateMode.original)
+            {
+                OriginalUpdate();
+            }
+            if (updateMode == UpdateMode.recordedInterpolation)
+            {
+                PrototypeUpdate();
+            }
         }
+        if (objectType == ObjectType.lerpedTransformPrototype)
+        {
+
+        }
+    }
+
+    protected virtual void PrototypeUpdate()
+    {
+        timeSinceLastUpdate = Time.time - timeOfLastUpdate;
+        expectedTime = latestUpdateTime + timeSinceLastUpdate - latestUpdateTravelTime;
+        foreach (Quaternion timedPosition in positionsRecord)
+        {
+            if (expectedTime >= timedPosition.w)
+            {
+                Vector3 newPosition = new Vector3(timedPosition.x, timedPosition.y, timedPosition.z);
+                transform.position = newPosition;
+            }
+        }
+        transform.rotation = latestRotation;
+    }
+
+    protected virtual void OriginalUpdate()
+    {
+        transform.position = latestPosition;
+        transform.rotation = latestRotation;
     }
 }

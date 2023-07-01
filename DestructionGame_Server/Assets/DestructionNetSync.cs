@@ -21,11 +21,15 @@ public class DestructionNetSync : MonoBehaviour
         building,
         projectile,
         explosionFX,
+        //lerpedTransformPrototype,
     }
 
     bool isDestroyed;
 
     public NetSyncManager manager;
+
+    public List<Quaternion> positionsRecord = new List<Quaternion>();
+    public List<Quaternion> rotationsRecord = new List<Quaternion>();//
 
     protected virtual void Start()
     {
@@ -44,6 +48,31 @@ public class DestructionNetSync : MonoBehaviour
 
             }
         }
+
+
+        Quaternion newPosition = new Quaternion();
+        newPosition.x = transform.position.x;
+        newPosition.y = transform.position.y;
+        newPosition.z = transform.position.z;
+        newPosition.w = Time.time;
+        positionsRecord.Add(newPosition);
+
+
+        Quaternion newRotation = new Quaternion();
+        //Vector3 eulerRotation = transform.rotation.eulerAngles;
+        newRotation.x = transform.rotation.eulerAngles.x;
+        newRotation.y = transform.rotation.eulerAngles.y;
+        newRotation.z = transform.rotation.eulerAngles.z;
+        newRotation.w = Time.time;
+        positionsRecord.Add(newRotation);
+
+
+    }
+
+    public virtual void syncUpdateExtension()
+    {
+        positionsRecord.Clear();
+        rotationsRecord.Clear();
     }
 
     public virtual void TakeDamage(float amount, int sourceNetworkID)

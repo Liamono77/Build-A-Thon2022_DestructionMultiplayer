@@ -82,6 +82,22 @@ public abstract class DestructionNetwork : MonoBehaviour
                 parameters.Add(parameter);
 //                Debug.Log($"added a boolean of value {parameter}");
             }
+            else if (character == 'A')
+            {
+                int length = message.ReadInt32();
+                List<Quaternion> listOfPositions = new List<Quaternion>();
+                for (int i = 0; i < length; i++)
+                {
+                    //listOfPositions.
+                    Quaternion newVect = new Quaternion();
+                    newVect.x = message.ReadFloat();
+                    newVect.y = message.ReadFloat();
+                    newVect.z = message.ReadFloat();
+                    newVect.w = message.ReadFloat();
+                    listOfPositions.Add(newVect);
+                }
+                parameters.Add(listOfPositions);
+            }
             else
             {
                 Debug.LogError($"Unrecognized parameter of character {character}");
@@ -111,6 +127,10 @@ public abstract class DestructionNetwork : MonoBehaviour
             else if (obj is bool)
             {
                 parametersDefinition = parametersDefinition + "B";
+            }
+            else if (obj is List<Quaternion>)
+            {
+                parametersDefinition = parametersDefinition + "A";
             }
             else
             {
@@ -150,6 +170,19 @@ public abstract class DestructionNetwork : MonoBehaviour
                 message.Write(theVariable);
  //               Debug.Log($"wrote a boolean of value {theVariable}");
 
+            }
+            else if (obj is List<Quaternion>)
+            {
+                List<Quaternion> theVariable = (List<Quaternion>)obj;
+                message.Write(theVariable.Count);
+                foreach (Quaternion vector in theVariable)
+                {
+                    message.Write(vector.x);
+                    message.Write(vector.y);
+                    message.Write(vector.z);
+                    message.Write(vector.w);
+                }
+                //List<Vector3> = ()
             }
             else
             {

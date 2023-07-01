@@ -11,6 +11,7 @@ public class NetSyncManager : MonoBehaviour
 
     public List<int> netIDsMissing;
 
+    public float currentTime;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +21,12 @@ public class NetSyncManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        currentTime = currentTime + Time.deltaTime;
+    }
+
+    public void SyncTime(NetConnection connection, float time)
+    {
+        currentTime = time;
     }
 
     //RPC to instantiate network objects
@@ -54,6 +60,25 @@ public class NetSyncManager : MonoBehaviour
 
             TankScriptClient tankReal = tankToUpdate as TankScriptClient;
             tankReal.latestTurretRotation = new Quaternion(TxRot, TyRot, TzRot, TwRot);
+        }
+
+    }
+
+    //RPC to synchronize tank transforms
+    public void SyncUpdateTankPrototype(NetConnection server, int networkID, List<Quaternion> positionsList, float updateTime, float wRot, float xRot, float yRot, float zRot, float TwRot, float TxRot, float TyRot, float TzRot)
+    {
+        DestructionNetSyncClient tankToUpdate = GetNetSync(networkID);
+        if (tankToUpdate != null)
+        {
+            //tankToUpdate.latestPosition = new Vector3(xPos, yPos, zPos);
+            tankToUpdate.latestUpdateTravelTime = updateTime - tankToUpdate.latestUpdateTime;
+            tankToUpdate.latestUpdateTime = updateTime;
+            tankToUpdate.positionsRecord = positionsList;
+            tankToUpdate.timeOfLastUpdate = Time.time;
+         //   tankToUpdate.latestRotation = new Quaternion(xRot, yRot, zRot, wRot);
+
+        //    TankScriptClient tankReal = tankToUpdate as TankScriptClient;
+        //    tankReal.latestTurretRotation = new Quaternion(TxRot, TyRot, TzRot, TwRot);
         }
 
     }

@@ -1495,6 +1495,7 @@ GameObject:
   - component: {fileID: 1255756135}
   - component: {fileID: 1255756136}
   - component: {fileID: 1255756137}
+  - component: {fileID: 1255756138}
   m_Layer: 0
   m_Name: DestructionServer
   m_TagString: Untagged
@@ -1586,6 +1587,20 @@ MonoBehaviour:
   netSyncs: []
   syncUpdateTimer: 0
   syncUpdateDelay: 0
+--- !u!114 &1255756138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255756132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d03467d65c7dc14dbeccdd4a4a61ac5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  theList: []
+  testButton: 0
 --- !u!1 &1276593304
 GameObject:
   m_ObjectHideFlags: 0

@@ -35,15 +35,16 @@ public class NetSyncManager : MonoBehaviour
 
     public void syncUpdate()
     {
+        //ServerGameLogic.serverGameLogic.server.CallRPC("SyncTime", NetDeliveryMethod.Unreliable, Time.time);
         foreach (DestructionNetSync netSync in netSyncs)
         {
             if (netSync.netSyncType == DestructionNetSync.NetSyncType.tank)
             {
-                //float xPos = netSync.
-                //ServerGameLogic.serverGameLogic.server.CallRPC("SyncUpdateTank", NetDeliveryMethod.UnreliableSequenced, netSync.networkID, );
-                //TankScript tankToUpdate = netSync.gameObject.GetComponent<TankScript>();
                 TankScript tankToUpdate = netSync as TankScript;
                 ServerGameLogic.serverGameLogic.server.CallRPC("SyncUpdateTank", NetDeliveryMethod.Unreliable, tankToUpdate.networkID, tankToUpdate.transform.position.x, tankToUpdate.transform.position.y, tankToUpdate.transform.position.z, tankToUpdate.transform.rotation.w, tankToUpdate.transform.rotation.x, tankToUpdate.transform.rotation.y, tankToUpdate.transform.rotation.z, tankToUpdate.myTurret.rotation.w, tankToUpdate.myTurret.rotation.x, tankToUpdate.myTurret.rotation.y, tankToUpdate.myTurret.rotation.z);
+
+                ServerGameLogic.serverGameLogic.server.CallRPC("SyncUpdateTankPrototype", NetDeliveryMethod.Unreliable, tankToUpdate.networkID, netSync.positionsRecord, Time.time, tankToUpdate.transform.rotation.w, tankToUpdate.transform.rotation.x, tankToUpdate.transform.rotation.y, tankToUpdate.transform.rotation.z, tankToUpdate.myTurret.rotation.w, tankToUpdate.myTurret.rotation.x, tankToUpdate.myTurret.rotation.y, tankToUpdate.myTurret.rotation.z);
+
             }
             if (netSync.netSyncType == DestructionNetSync.NetSyncType.projectile)
             {
@@ -51,6 +52,8 @@ public class NetSyncManager : MonoBehaviour
                 ServerGameLogic.serverGameLogic.server.CallRPC("SyncUpdateProjectile", NetDeliveryMethod.Unreliable, projectileToUpdate.networkID, projectileToUpdate.transform.position.x, projectileToUpdate.transform.position.y, projectileToUpdate.transform.position.z);
 
             }
+
+            netSync.syncUpdateExtension();
         }
     }
     public int GetNewNetworkID()

@@ -2186,13 +2186,14 @@ GameObject:
   - component: {fileID: 655111599}
   - component: {fileID: 655111600}
   - component: {fileID: 655111601}
+  - component: {fileID: 655111602}
   m_Layer: 0
   m_Name: DestructionClient
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &655111597
 Transform:
   m_ObjectHideFlags: 0
@@ -2276,6 +2277,21 @@ MonoBehaviour:
   indicator: {fileID: 888798928}
   inputUpdateDelay: 0.1
   inputUpdateTimer: 0
+--- !u!114 &655111602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655111596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7238d4bf74072614d82621a96f8ddba3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  theList:
+  - {x: 0, y: 0, z: 0, w: 0}
+  testButton: 0
 --- !u!1 &661427436
 GameObject:
   m_ObjectHideFlags: 0
@@ -2463,7 +2479,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &736743570
 RectTransform:
   m_ObjectHideFlags: 0

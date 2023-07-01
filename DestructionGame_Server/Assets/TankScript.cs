@@ -40,6 +40,8 @@ public class TankScript : DestructionNetSync
     public GameObject muzzleFlashFX;
     public GameObject deathExplosionPrefab;
 
+    public List<Vector3> positionBufferPrototype = new List<Vector3>();
+
 
     // Start is called before the first frame update
     protected override void Start()
@@ -66,6 +68,17 @@ public class TankScript : DestructionNetSync
             Dead = true;
             Destroy(gameObject, deathModeDuration);
             GameObject.Instantiate(deathExplosionPrefab, transform.position, transform.rotation);
+        }
+
+        //bufferedSyncInfoUpdate();
+    }
+
+    public  void bufferedSyncInfoUpdate()
+    {
+        positionBufferPrototype.Add(gameObject.transform.position);
+        if (positionBufferPrototype.Count > 3)
+        {
+            positionBufferPrototype.RemoveAt(4);
         }
     }
     public void RotateTowardsInput()

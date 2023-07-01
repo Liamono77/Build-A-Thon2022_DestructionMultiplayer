@@ -135,6 +135,14 @@ MonoBehaviour:
   healthMax: 50
   healthUIPrefab: {fileID: 0}
   objectType: 2
+  updateMode: 0
+  positionsRecord: []
+  latestUpdateTime: 0
+  latestUpdateTravelTime: 0
+  expectedTime: 0
+  timeSinceLastUpdate: 0
+  timeOfLastUpdate: 0
+  testfloat: 0.5
 --- !u!1 &6708763950881062222
 GameObject:
   m_ObjectHideFlags: 0

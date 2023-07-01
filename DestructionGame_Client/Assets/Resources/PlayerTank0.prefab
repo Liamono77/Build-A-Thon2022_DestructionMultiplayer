@@ -20,6 +20,14 @@ MonoBehaviour:
   healthMax: 50
   healthUIPrefab: {fileID: 0}
   objectType: 1
+  updateMode: 1
+  positionsRecord: []
+  latestUpdateTime: 0
+  latestUpdateTravelTime: 0
+  expectedTime: 0
+  timeSinceLastUpdate: 0
+  timeOfLastUpdate: 0
+  testfloat: 0.5
   myTurret: {fileID: 2655586974466488792}
   latestTurretRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1001 &3278924280253063210
